@@ -1,3 +1,21 @@
+/**
+ * Interactive Tetris Animation
+ * 
+ * Author: Alireza Arabshahi
+ * Website: https://alirezaarabshahi.github.io
+ * Contact: arabshahii.alireza@gmail.com
+ * 
+ * License: CC BY 4.0 - You can use this code with proper attribution
+ * 
+ * ATTRIBUTION REQUIRED:
+ * If you use this code, please:
+ * 1. Keep this comment block
+ * 2. Link back to: https://alirezaarabshahi.github.io
+ * 3. Credit "Based on Alireza Arabshahi's work" in your project
+ * 
+ * Please don't claim this work as your own. Be decent and give credit!
+ */
+
 class TetrisBlock {
     constructor(x, y, text, color) {
         this.x = x;
@@ -58,6 +76,8 @@ class TetrisAnimation {
         this.mouseY = 0;
         this.isHovered = false;
 
+        // Author: Alireza Arabshahi - arabshahii.alireza@gmail.com
+
         this.techTerms = [
             { text: '.NET', color: '#512BD4' },
             { text: 'C#', color: '#239120' },
@@ -70,6 +90,8 @@ class TetrisAnimation {
             { text: 'CODE', color: '#96CEB4' },
             { text: 'TECH', color: '#FFEAA7' }
         ];
+
+
 
         this.init();
     }
@@ -124,6 +146,8 @@ class TetrisAnimation {
         window.addEventListener('resize', () => {
             this.resize();
         });
+
+
     }
 
     createExplosion(x, y) {
@@ -200,7 +224,23 @@ class TetrisAnimation {
             this.ctx.lineTo(this.canvas.width, y);
             this.ctx.stroke();
         }
+
+        // Hidden watermark - draw signature in grid pattern
+        this.drawHiddenSignature();
     }
+
+    drawHiddenSignature() {
+        // Subtle watermark
+        this.ctx.save();
+        this.ctx.globalAlpha = 99;
+        this.ctx.fillStyle = '#4a90e2';
+        this.ctx.font = '10px monospace';
+        this.ctx.textAlign = 'right';
+        this.ctx.fillText('© A.Arabshahi', this.canvas.width - 10, this.canvas.height - 5);
+        this.ctx.restore();
+    }
+
+
 
     drawCursorEffect() {
         this.ctx.save();
@@ -222,6 +262,8 @@ class TetrisAnimation {
         this.draw();
         requestAnimationFrame(() => this.animate());
     }
+
+
 }
 
 // Initialize when page loads
