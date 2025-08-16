@@ -1,0 +1,16 @@
+# فایل‌های شخصی و مستندات محلی
+VERSION_HISTORY.md
+
+# فایل‌های سیستم
+.DS_Store
+Thumbs.db
+
+# فایل‌های IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# فایل‌های موقت
+*.tmp
+*.temp
