@@ -1,5 +1,7 @@
-# فایل‌های شخصی و مستندات محلی
+# Development files (local only)
 VERSION_HISTORY.md
+src/
+index-generated.html
 
 # فایل‌های سیستم
 .DS_Store
