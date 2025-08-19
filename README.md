@@ -69,7 +69,7 @@ Example content update:
 ```json
 {
   "NAME": "Your Name",
-  "SKILLS": ["JavaScript", "React", "Node.js"],
+  "SKILLS": ["C#", ".NET", "ASP.NET Core"],
   "GITHUB_URL": "https://github.com/yourusername"
 }
 ```

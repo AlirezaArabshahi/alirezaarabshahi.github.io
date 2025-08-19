@@ -1,16 +1,17 @@
 # Development files (local only)
 VERSION_HISTORY.md
+index.html
 index-top.html
-# فایل‌های سیستم
+# System Files
 .DS_Store
 Thumbs.db
 
-# فایل‌های IDE
+# IDE Files
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# فایل‌های موقت
+# Temporary Files
 *.tmp
 *.temp

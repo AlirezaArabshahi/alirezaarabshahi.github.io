@@ -4,32 +4,32 @@
 import fs from 'fs';
 
 
-// خواندن فایل template
+// Reading the template file
 const template = fs.readFileSync('src/template.html', 'utf8');
 
-// خواندن متغیرها از فایل JSON
+// Reading variables from JSON file
 const rawVariables = JSON.parse(fs.readFileSync('src/variables.json', 'utf8'));
 
-// تبدیل skills array به HTML
+// Converting skills array to HTML
 const skillsHtml = rawVariables.SKILLS
     .map(skill => `<span class="skill">${skill}</span>`)
     .join('\n                ');
 
-// ترکیب متغیرها
+// Combining variables
 const variables = {
     ...rawVariables,
     SKILLS_HTML: skillsHtml
 };
 
-// جایگزینی متغیرها
+// Replacing variables
 let output = template;
 for (const [key, value] of Object.entries(variables)) {
     const regex = new RegExp(`{{${key}}}`, 'g');
     output = output.replace(regex, value);
 }
 
-// نوشتن فایل نهایی
+// Writing the final file
 fs.writeFileSync('index.html', output);
 
-console.log('✅ فایل index.html ساخته شد!');
-console.log('📝 برای تغییر محتوا، فایل src/variables.json رو ویرایش کن و دوباره اجرا کن');
+console.log('✅ File index.html has been created!');
+console.log('📝 To update the content, edit the src/variables.json file and run the script again.');
