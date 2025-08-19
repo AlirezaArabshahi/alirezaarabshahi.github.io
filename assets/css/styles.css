@@ -19,14 +19,6 @@ body {
     overflow-x: hidden;
 }
 
-.main-content {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    max-width: 1200px;
-    width: 100%;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -39,13 +31,93 @@ body {
     }
 }
 
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 0.8rem 0;
+    transition: transform 0.5s ease;  /* fancy style */
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.navbar-center {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.navbar-link:hover {
+    color: #fff;
+}
+
+.source-link {
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+}
+
+.navbar-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navbar-option {
+    padding: 0.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.navbar-option.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
 .container {
     text-align: left;
     max-width: 600px;
     flex: 1;
+    padding: 2.5rem;
+    border-radius: 20px;
+    position: relative;
 }
 
-.model-container {
+.tetris-container {
     width: 600px;
     height: 600px;
     position: relative;
@@ -56,11 +128,12 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 20px;
+    /* fancy style */
     background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
     border: 1px solid rgba(74, 144, 226, 0.3);
     transition: all 0.3s ease;
 }
-
+/* fancy style */
 #tetris-canvas:hover {
     border-color: rgba(74, 144, 226, 0.6);
     box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
@@ -68,43 +141,49 @@ body {
 }
 
 h1 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-    font-weight: 300;
-    background: linear-gradient(135deg, #fff, #ccc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
 }
 
 h2 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
     font-weight: 400;
-    color: #888;
-    border-left: 3px solid #333;
+    color: #94a3b8;
+    position: relative;
+    z-index: 1;
     padding-left: 1rem;
+    border-left: 2px solid #374151;
 }
 
 .skills {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
 .skill {
-    background-color: #111;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
     font-size: 0.9rem;
-    border: 1px solid #333;
+    color: #e2e8f0;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    color: #cbd5e1;
+    position: relative;
+    z-index: 1;
 }
 
 .links {
@@ -112,61 +191,79 @@ p {
     gap: 1.5rem;
     justify-content: flex-start;
     flex-wrap: wrap;
-    /* margin-top: 1rem; */
+    position: relative;
+    z-index: 1;
 }
 
 .links a {
-    color: #fff;
+    color: #e2e8f0;
     text-decoration: none;
     padding: 0.6rem 1.2rem;
-    border: 1px solid #333;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    border-radius: 12px;
     position: relative;
-    overflow: hidden;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
 .links a:hover {
     background-color: #fff;
     color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-}
-
-.links a:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.links a:hover:before {
-    left: 100%;
+    transform: scale(1.05);
 }
 
 @media (max-width: 1024px) {
+    .navbar-container {
+        padding: 0 1rem;
+    }
+    
+    .navbar-center {
+        gap: 1rem;
+    }
+    
+    .content-wrapper {
+        padding: 120px 15px 20px;
+    }
+    
     .main-content {
         flex-direction: column;
         gap: 2rem;
     }
+    
+    .container {
+        padding: 2rem;
+    }
 
-    .model-container {
+    .tetris-container {
         width: 300px;
         height: 300px;
     }
 }
 
 @media (max-width: 768px) {
+    .navbar-center {
+        display: none;
+    }
+    
+    .navbar-container {
+        justify-content: space-between;
+    }
+    
+    .content-wrapper {
+        padding: 100px 10px 20px;
+    }
+    
+    .container {
+        padding: 1.5rem;
+    }
+    
     h1 {
         font-size: 2.5rem;
     }
 
     h2 {
         font-size: 1.2rem;
+        padding: 0.4rem 0.8rem;
     }
 
     p {
@@ -175,13 +272,25 @@ p {
 
     .skills {
         justify-content: flex-start;
+        gap: 0.8rem;
+    }
+    
+    .skill {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
     }
 
     .links {
         justify-content: flex-start;
+        gap: 1rem;
+    }
+    
+    .links a {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
     }
 
-    .model-container {
+    .tetris-container {
         width: 350px;
         height: 350px;
     }

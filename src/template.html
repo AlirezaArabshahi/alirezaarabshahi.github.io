@@ -10,11 +10,31 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♟</text></svg>">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="assets/css/fancy-styles.css"> -->
     <link rel="stylesheet" href="assets/css/job-badge.css">
 
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <span class="navbar-brand">{{LOGO}}</span>
+            </div>
+            <div class="navbar-center">
+                <a href="#" class="navbar-link">Works</a>
+                <a href="#" class="navbar-link">Posts</a>
+            </div>
+            <div class="navbar-right">
+                <a href="{{GITHUB_URL}}" target="_blank" class="navbar-link source-link">🔗 Source</a>
+                <div class="navbar-options">
+                    <span class="navbar-option disabled" title="فعلاً در دسترس نیست">🌙</span>
+                    <span class="navbar-option disabled" title="فعلاً در دسترس نیست">🌐</span>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="job-banner" id="jobBanner">
         🚀 Available for New Opportunities! Looking for exciting projects to work on.
@@ -42,37 +62,37 @@
         </p>
     </div>
 
-    <div class="main-content">
-        <div class="container">
-            <h1>{{NAME}}</h1>
-            <h2>{{TITLE}}</h2>
+   <div class="main-content">
+            <div class="container">
+                <h1>{{NAME}}</h1>
+                <h2>{{TITLE}}</h2>
 
-            <div class="skills">
-                {{SKILLS_HTML}}
+                <div class="skills">
+                    {{SKILLS_HTML}}
+                </div>
+
+                <p>{{DESCRIPTION}}</p>
+
+                <p>{{LAST_JOB_EXPERIENCE}}</p>
+
+                <p>{{LOOKING_FOR_JOB}}</p>
+
+                <!-- <p>I am based in {{LOCATION}}.</p> -->
+
+                <p>Explore My Work:</p>
+
+                <div class="links">
+                    <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
+                    <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
+                    <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
+                    <a href="{{EMAIL_URL}}">Email</a>
+                </div>
             </div>
 
-            <p>{{DESCRIPTION}}</p>
-
-            <p>{{LAST_JOB_EXPERIENCE}}</p>
-
-            <p>{{LOOKING_FOR_JOB}}</p>
-
-            <p>I am based in {{LOCATION}}.</p>
-
-            <p>Explore My Work:</p>
-
-            <div class="links">
-                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
-                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
-                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
-                <a href="{{EMAIL_URL}}">Email</a>
+            <div class="tetris-container">
+                <canvas id="tetris-canvas"></canvas>
             </div>
         </div>
-
-        <div class="model-container">
-            <canvas id="tetris-canvas"></canvas>
-        </div>
-    </div>
     <script src="assets/js/tetris-animation.js"></script>
     <script src="assets/js/job-features.js"></script>
 </body>

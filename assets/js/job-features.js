@@ -24,8 +24,12 @@ class JobFeatures {
 
     showJobBanner() {
         const banner = document.getElementById('jobBanner');
+        const navbar = document.querySelector('.navbar');
         if (banner) {
             banner.classList.add('show');
+            if (navbar) {
+                navbar.style.transform = `translateY(${banner.offsetHeight}px)`;
+            }
         }
     }
 }
@@ -53,8 +57,12 @@ function closeJobPopup() {
 
 function closeJobBanner() {
     const banner = document.getElementById('jobBanner');
+    const navbar = document.querySelector('.navbar');
     if (banner) {
         banner.classList.remove('show');
+        if (navbar) {
+            navbar.style.transform = 'translateY(0)';
+        }
     }
 }
 
