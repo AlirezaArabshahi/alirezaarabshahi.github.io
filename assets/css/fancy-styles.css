@@ -1,14 +1,14 @@
-/* Fancy Styles - can be disabled for a minimal look */
 
 .container {
+    /* پس‌زمینه گرادیانی */
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
     border: 1px solid rgba(148, 163, 184, 0.2);
+    /* افکت بلور پس‌زمینه */
     backdrop-filter: blur(10px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
     animation: slideInLeft 0.8s ease-out;
 }
 
+/* افکت درخشش برای کانتینر */
 .container::before {
     content: '';
     position: absolute;
@@ -16,36 +16,21 @@
     left: -100%;
     width: 100%;
     height: 100%;
+    /* پس‌زمینه گرادیانی برای درخشش */
     background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.1), transparent);
+    /* انیمیشن درخشش بی‌نهایت */
     animation: shimmer 3s infinite;
 }
 
-/* #tetris-canvas {
-    background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
-    border: 1px solid rgba(74, 144, 226, 0.3);
-    transition: all 0.3s ease;
-}
-
-#tetris-canvas:hover {
-    border-color: rgba(74, 144, 226, 0.6);
-    box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
-    transform: scale(1.02);
-} */
-
+/* انیمیشن برای عنوان اصلی */
 h1 {
-    background: linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 h2 {
+    /* خط عمودی کنار عنوان */
     border-left: 3px solid #3b82f6;
-    padding-left: 1rem;
     animation: fadeInUp 0.6s ease-out 0.4s both;
-    background: rgba(59, 130, 246, 0.1);
-    border-radius: 0 8px 8px 0;
 }
 
 .skills {
@@ -53,18 +38,17 @@ h2 {
 }
 
 .skill {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
-    border: 1px solid rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
 }
 
+/* استایل هاور برای هر مهارت */
 .skill:hover {
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     border-color: rgba(59, 130, 246, 0.6);
 }
 
+/* انیمیشن برای پاراگراف‌ها */
 p {
     animation: fadeInUp 0.6s ease-out 1s both;
 }
@@ -74,70 +58,31 @@ p {
 }
 
 .links a {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
     border: 1px solid rgba(59, 130, 246, 0.3);
     transition: all 0.4s ease;
     overflow: hidden;
+    /* افکت بلور پس‌زمینه */
     backdrop-filter: blur(5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .links a:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3));
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     border-color: rgba(59, 130, 246, 0.6);
 }
 
-.links a:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.links a:hover:before {
-    left: 100%;
-}
-
 .navbar {
+    /* پس‌زمینه تیره با شفافیت */
     background: rgba(0, 0, 0, 0.95);
+    /* افکت بلور پس‌زمینه */
     backdrop-filter: blur(10px);
+    /* حاشیه پایین */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    /* transition: transform 0.5s ease; */
 }
 
-.source-link {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
 
-.source-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
-}
-
-.navbar-option:not(.disabled):hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* انیمیشن ورود از چپ */
 @keyframes slideInLeft {
     from {
         opacity: 0;
@@ -149,6 +94,7 @@ p {
     }
 }
 
+/* انیمیشن درخشش */
 @keyframes shimmer {
     0% {
         left: -100%;
@@ -158,6 +104,7 @@ p {
     }
 }
 
+/* انیمیشن ظاهر شدن از پایین */
 @keyframes fadeInUp {
     from {
         opacity: 0;
