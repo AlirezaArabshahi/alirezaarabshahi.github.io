@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 8rem 20px 20px;
     animation: fadeIn 1s ease-in;
     overflow-x: hidden;
 }
@@ -101,27 +101,92 @@ body {
 }
 
 .main-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 2rem;
     max-width: 1200px;
     width: 100%;
+    position: relative;
 }
 
 .container {
     text-align: left;
     max-width: 600px;
-    flex: 1;
     padding: 2.5rem;
     border-radius: 20px;
     position: relative;
+    z-index: 2;
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tetris-container {
-    width: 600px;
-    height: 600px;
-    position: relative;
-    flex-shrink: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80vh;
+    height: 80vh;
+    transform: translate(-20%, -50%);
+    z-index: 1;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.tetris-container:hover {
+    transform: translate(-30%, -50%) scale(1.05);
+    z-index: 3;
+}
+
+#tetris-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 1rem;
+    }
+    
+    .container {
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 2rem;
+        z-index: 3;
+        background: rgba(13, 17, 23, 0.95);
+        backdrop-filter: blur(12px);
+    }
+    
+    .tetris-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        transform: none;
+        z-index: 0;
+        pointer-events: none;
+    }
+    
+    .tetris-container:hover {
+        transform: none;
+        z-index: 0;
+    }
+    
+    #tetris-canvas {
+        border-radius: 0;
+        background: linear-gradient(135deg, rgba(0, 20, 40, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%);
+        border: none;
+    }
 }
 
 #tetris-canvas {
@@ -146,6 +211,7 @@ h1 {
     font-weight: 600;
     position: relative;
     z-index: 1;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 h2 {
