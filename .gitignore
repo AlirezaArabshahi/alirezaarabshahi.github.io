@@ -1,8 +1,6 @@
 # Development files (local only)
 VERSION_HISTORY.md
-src/
-index-generated.html
-
+index-top.html
 # فایل‌های سیستم
 .DS_Store
 Thumbs.db

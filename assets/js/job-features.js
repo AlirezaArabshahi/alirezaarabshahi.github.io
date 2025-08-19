@@ -40,9 +40,6 @@ function toggleJobPopup() {
     } else {
         popup.classList.add('show');
         badge.style.transform = 'scale(0.95)';
-        
-        // Track interaction
-        console.log('Job popup opened - user interested!');
     }
 }
 

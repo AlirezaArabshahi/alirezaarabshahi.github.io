@@ -3,9 +3,10 @@
   "version": "2.0.0",
   "description": "Personal website with interactive animations and clean template system",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "build": "node src/build.js",
-    "dev": "node src/build.js && open index-generated.html"
+    "dev": "node src/build.js && open index.html"
   },
   "repository": {
     "type": "git",

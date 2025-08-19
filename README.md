@@ -35,7 +35,8 @@ A modern, interactive personal website built with a clean template system and dy
 ## 🔧 Development
 
 ### Prerequisites
-- Node.js (for build system)
+
+- Node.js and npm
 
 ### Local Development
 
@@ -146,44 +147,29 @@ Original code: https://github.com/alirezaarabshahi/alirezaarabshahi.github.io
 - Create your own portfolio based on this design
 
 ### ❌ Please don't:
-- Strip away author information from the code
-- Present this as your original work without acknowledgment
-- Sell this code as a template or product
-- Use for commercial purposes without permission
-- Redistribute without any attribution
 
-**A simple credit goes a long way in supporting open source! 🙏**
+- Present this as your original work without acknowledgment.
+- Sell this code as a template or product.
+- Use it for commercial purposes without permission.
 
-### 📞 Questions About Usage?
+For questions about usage, please see the contact information below.
 
-If you want to:
-- Use this commercially
-- Discuss a specific use case
-- Ask about permissions
-- Report issues or bugs
-
-Feel free to reach out:
-- 📧 **Email:** arabshahii.alireza@gmail.com
-- 💼 **LinkedIn:** [alirezaarabshahi](https://www.linkedin.com/in/alirezaarabshahi)
-- 🌐 **Website:** [alirezaarabshahi.github.io](https://alirezaarabshahi.github.io)
-
-This project is licensed under **Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)**
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)**.
 
 ---
 
 ## ⭐ Show Your Support
 
-If you found this project helpful or inspiring, please consider:
+If you find this project helpful or inspiring, please consider:
 
-- **⭐ Starring this repository** - it helps others discover the project
-- **🔗 Sharing with fellow developers** who might find it useful
-- **💬 Providing feedback** or suggestions for improvement
+- **⭐ Starring this repository** to help others discover it.
+- **🔗 Sharing it** with fellow developers.
+- **💬 Providing feedback** or suggestions for improvement.
 - **🐛 Reporting issues** if you find any bugs
-
-**Your star means a lot and motivates me to create more open source projects! 🚀**
 
 ## 📧 Contact
 
 - **GitHub**: [@alirezaarabshahi](https://github.com/alirezaarabshahi)
 - **LinkedIn**: [alirezaarabshahi](https://www.linkedin.com/in/alirezaarabshahi)
+- **Website**: [alirezaarabshahi.github.io](https://alirezaarabshahi.github.io)
 - **Email**: arabshahii.alireza@gmail.com

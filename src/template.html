@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}}</title>
+    <meta name="description" content="{{META_DESCRIPTION}}">
+    <meta name="keywords" content="{{META_KEYWORDS}}">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♟</text></svg>">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/job-badge.css">
+
+</head>
+
+<body>
+    <div class="job-banner" id="jobBanner">
+        🚀 Available for New Opportunities! Looking for exciting projects to work on.
+        <button class="close-banner" onclick="closeJobBanner()">×</button>
+    </div>
+    
+    <div class="job-badge" id="jobBadge" onclick="toggleJobPopup()">
+        Open to Work
+    </div>
+    
+    <div class="job-popup" id="jobPopup">
+        <button class="close-btn" onclick="closeJobPopup()">×</button>
+        <h3>🎯 Ready for New Challenges!</h3>
+        <p>I'm actively seeking opportunities in software development. Let's build something amazing together!</p>
+        <p><strong>Available for:</strong></p>
+        <ul>
+            <li>Full-time positions</li>
+            <li>Contract projects</li>
+            <li>Remote opportunities</li>
+            <li>Interesting collaborations</li>
+        </ul>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            📍 Based in {{LOCATION}} 
+            🌎 Open to remote work worldwide
+        </p>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>{{NAME}}</h1>
+            <h2>{{TITLE}}</h2>
+
+            <div class="skills">
+                {{SKILLS_HTML}}
+            </div>
+
+            <p>{{DESCRIPTION}}</p>
+
+            <p>{{LAST_JOB_EXPERIENCE}}</p>
+
+            <p>{{LOOKING_FOR_JOB}}</p>
+
+            <p>I am based in {{LOCATION}}.</p>
+
+            <p>Explore My Work:</p>
+
+            <div class="links">
+                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
+                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
+                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
+                <a href="{{EMAIL_URL}}">Email</a>
+            </div>
+        </div>
+
+        <div class="model-container">
+            <canvas id="tetris-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- <script type="module" src="./src/main.js"></script> -->
+    <script src="assets/js/tetris-animation.js"></script>
+    <script src="assets/js/job-features.js"></script>
+</body>
+
+</html>
