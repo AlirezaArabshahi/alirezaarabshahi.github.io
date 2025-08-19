@@ -54,7 +54,16 @@ A modern, interactive personal website built with a clean template system and dy
 
 3. **Build the website**
    ```bash
-   node build.js
+   # Using npm script (recommended)
+   npm run build
+   
+   # Or run directly
+   node src/build.js
+   ```
+   The file `index.html` will be created in the root directory
+4. **Preview the website**
+   ```bash
+   # Open index.html in your browser
    ```
 
 ### Content Management

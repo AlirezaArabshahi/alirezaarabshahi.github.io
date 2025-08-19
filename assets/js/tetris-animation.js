@@ -225,11 +225,11 @@ class TetrisAnimation {
             this.ctx.stroke();
         }
 
-        // Hidden watermark - draw signature in grid pattern
-        this.drawHiddenSignature();
+        // Draw signature in grid pattern
+        this.drawSignature();
     }
 
-    drawHiddenSignature() {
+    drawSignature() {
         // Subtle watermark
         this.ctx.save();
         this.ctx.globalAlpha = 99;
@@ -239,8 +239,6 @@ class TetrisAnimation {
         this.ctx.fillText('© A.Arabshahi', this.canvas.width - 10, this.canvas.height - 5);
         this.ctx.restore();
     }
-
-
 
     drawCursorEffect() {
         this.ctx.save();
@@ -262,8 +260,6 @@ class TetrisAnimation {
         this.draw();
         requestAnimationFrame(() => this.animate());
     }
-
-
 }
 
 // Initialize when page loads
