@@ -65,36 +65,34 @@
     </div>
 
    <div class="main-content">
-            <div class="container">
-                <h1>{{NAME}}</h1>
-                <h2>{{TITLE}}</h2>
+        <div class="container">
+            <h1>{{NAME}}</h1>
+            <h2>{{TITLE}}</h2>
 
-                <div class="skills">
-                    {{SKILLS_HTML}}
-                </div>
-
-                <p>{{DESCRIPTION}}</p>
-
-                <!-- <p>{{LAST_JOB_EXPERIENCE}}</p> -->
-
-                <!-- <p>{{LOOKING_FOR_JOB}}</p> -->
-
-                <!-- <p>I am based in {{LOCATION}}.</p> -->
-
-                <p>Explore My Work:</p>
-
-                <div class="links">
-                    <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
-                    <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
-                    <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
-                    <a href="{{EMAIL_URL}}">Email</a>
-                </div>
+            <div class="skills">
+                {{SKILLS_HTML}}
             </div>
 
-            <div class="tetris-container">
-                <canvas id="tetris-canvas"></canvas>
+            <p>{{DESCRIPTION}}</p>
+
+            <!-- <p>{{LAST_JOB_EXPERIENCE}}</p> -->
+
+            <!-- <p>{{LOOKING_FOR_JOB}}</p> -->
+
+            <!-- <p>I am based in {{LOCATION}}.</p> -->
+
+            <div class="links">
+                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
+                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
+                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
+                <a href="{{EMAIL_URL}}">Email</a>
             </div>
         </div>
+
+        <div class="tetris-container">
+            <canvas id="tetris-canvas"></canvas>
+        </div>
+    </div>
     <script src="assets/js/tetris-animation.js"></script>
     <script src="assets/js/job-features.js"></script>
 </body>
