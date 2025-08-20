@@ -230,13 +230,12 @@ class TetrisAnimation {
     }
 
     drawSignature() {
-        // Subtle watermark
         this.ctx.save();
         this.ctx.globalAlpha = 99;
         this.ctx.fillStyle = '#4a90e2';
-        this.ctx.font = '10px monospace';
+        this.ctx.font = '16px monospace';
         this.ctx.textAlign = 'right';
-        this.ctx.fillText('© A.Arabshahi', this.canvas.width - 10, this.canvas.height - 5);
+        this.ctx.fillText('© Arabshahi.dev', this.canvas.width - 10, this.canvas.height - 5);
         this.ctx.restore();
     }
 
