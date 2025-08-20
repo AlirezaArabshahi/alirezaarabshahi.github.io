@@ -234,8 +234,8 @@ class TetrisAnimation {
         this.ctx.globalAlpha = 99;
         this.ctx.fillStyle = '#4a90e2';
         this.ctx.font = '16px monospace';
-        this.ctx.textAlign = 'right';
-        this.ctx.fillText('© Arabshahi.dev', this.canvas.width - 10, this.canvas.height - 5);
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText('© Arabshahi.dev', this.canvas.width / 2, this.canvas.height - 5);
         this.ctx.restore();
     }
 
