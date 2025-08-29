@@ -40,7 +40,7 @@ class Router {
     }
 
     async loadPage(page, addToHistory = true) {
-        const path = `partials/${this.routes[page] || '404'}.html`;
+        const path = `dist/${this.routes[page] || '404'}.html`;
         try {
             const response = await fetch(path);
             if (!response.ok) throw new Error(`Page not found at ${path}`);
@@ -61,7 +61,7 @@ class Router {
 
         } catch (error) {
             console.error('Error loading page:', error);
-            const response = await fetch('partials/404.html');
+            const response = await fetch('dist/404.html');
             this.mainContent.innerHTML = await response.text();
         }
     }
