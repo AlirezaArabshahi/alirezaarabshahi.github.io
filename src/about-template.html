@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}}</title>
+    <meta name="description" content="{{META_DESCRIPTION}}">
+    <meta name="keywords" content="{{META_KEYWORDS}}">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♟</text></svg>">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/job-badge.css">
+
+</head>
+
+<body>
+    {{NAVBAR}}
+
+    <div class="main-content">
+        <div class="page-container align-center">
+    <h1>About</h1>
+    <div>Learn more about this SPA Router</div>
+    <hr style="border: none; height: 1px; background-color: #374151; width: 40px; margin: 1.5rem 0 1rem 0;" />
+    
+    <div style="max-width: 600px; text-align: left;">
+        <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Router Features</h3>
+        <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
+            <div style="padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                <h4 style="color: #94a3b8; margin-bottom: 0.5rem;">🚀 Modern Navigation</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Uses the History API for clean URLs without hash fragments</p>
+            </div>
+            <div style="padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                <h4 style="color: #94a3b8; margin-bottom: 0.5rem;">⚡ Fast Loading</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Loads content dynamically without full page refreshes</p>
+            </div>
+            <div style="padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                <h4 style="color: #94a3b8; margin-bottom: 0.5rem;">🔒 Route Guards</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Built-in authentication and authorization support</p>
+            </div>
+            <div style="padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                <h4 style="color: #94a3b8; margin-bottom: 0.5rem;">🎯 Lifecycle Hooks</h4>
+                <p style="margin: 0; font-size: 0.9rem;">beforeEnter and afterEnter hooks for custom logic</p>
+            </div>
+        </div>
+        
+        <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Usage Example</h3>
+        <pre style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;"><code>// Initialize router and add routes
+const router = new SPARouter();
+
+router.addRoutes({
+    '/': 'pages/home.html',
+    '/about': 'pages/about.html',
+    '/contact': 'pages/contact.html',
+    '/404': 'pages/404.html'
+});
+
+// Navigate programmatically
+router.navigateTo('/about');</code></pre>
+    </div>
+</div>
+    </div>
+
+    {{JOB_POPUP}}
+
+    <script src="assets/js/tetris-animation.js"></script>
+    <script src="assets/js/job-features.js"></script>
+</body>
+
+</html>
