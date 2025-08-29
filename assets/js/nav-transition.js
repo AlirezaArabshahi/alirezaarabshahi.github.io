@@ -97,7 +97,7 @@ class ElasticNavTransition {
         const deltaY = (linkRect.top + linkRect.height/2) - (canvasRect.top + canvasRect.height/2);
         
         // Fast elastic stretch like taffy
-        this.tetrisCanvas.style.transition = 'transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        this.tetrisCanvas.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         this.tetrisCanvas.style.transformOrigin = 'center center';
         
         // Elastic stretch effect
@@ -116,7 +116,7 @@ class ElasticNavTransition {
         // Quick snap back and collapse
         setTimeout(() => {
             this.snapToHeader(targetPage);
-        }, 100);
+        }, 80);
     }
     
     snapToHeader(targetPage) {
@@ -127,7 +127,7 @@ class ElasticNavTransition {
         }
         
         // Fast snap to header with elastic bounce
-        this.tetrisCanvas.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         this.tetrisCanvas.style.transform = `
             translateY(-60vh)
             scale(0.05)
@@ -141,8 +141,10 @@ class ElasticNavTransition {
         // Also add to body for global persistence
         document.body.classList.add('grid-injected');
         
-        // Store the target page for navigation after animation completes
-        this.pendingNavigation = targetPage;
+        // Navigate after a short delay to allow animation to be seen
+        setTimeout(() => {
+            window.router.navigateTo(targetPage);
+        }, 150);
     }
 
     playReturnAnimation() {
@@ -151,7 +153,7 @@ class ElasticNavTransition {
 
         this.isAnimating = true;
 
-        this.tetrisCanvas.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         this.tetrisCanvas.style.transform = `
             translateY(0)
             scale(1)
@@ -170,7 +172,7 @@ class ElasticNavTransition {
         // Set isAnimating to false after animation completes
         setTimeout(() => {
             this.isAnimating = false;
-        }, 600);
+        }, 400);
     }
     
     reset() {

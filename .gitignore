@@ -6,6 +6,7 @@ Thumbs.db
 node_modules
 about.html
 contact.html
+home.html
 # IDE Files
 .vscode/
 .idea/
