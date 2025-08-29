@@ -174,13 +174,14 @@ class ElasticNavTransition {
             this.tetrisCanvas.style.opacity = '1';
         }, 10); // Small delay to allow the browser to register the initial state
 
+        // Remove grid-injected classes immediately as the return animation starts
+        const navbar = document.querySelector('.navbar');
+        if (navbar) navbar.classList.remove('grid-injected');
+        document.body.classList.remove('grid-injected');
+
         // Set isAnimating to false after animation completes
         setTimeout(() => {
             this.isAnimating = false;
-            // Remove grid-injected classes to reset header AFTER animation
-            const navbar = document.querySelector('.navbar');
-            if (navbar) navbar.classList.remove('grid-injected');
-            document.body.classList.remove('grid-injected');
         }, 400);
     }
     
