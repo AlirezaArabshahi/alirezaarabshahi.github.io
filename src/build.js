@@ -12,10 +12,10 @@ const config = {
         JOB_POPUP: 'src/components/job-popup.html'
     },
     pages: {
-        'index': { templatePath: 'src/template.html' },
-        'home': { templatePath: 'src/home.html'},
-        'about': { templatePath: 'src/components/about.html'},
-        'contact': { templatePath: 'src/components/contact.html'},
+        'index': { contentPath: 'src/home.html', templatePath: 'src/template.html' },
+        'home': { contentPath: 'src/home.html', templatePath: 'src/template.html' },
+        'about': { contentPath: 'src/components/about.html', templatePath: 'src/template.html' },
+        'contact': { contentPath: 'src/components/contact.html', templatePath: 'src/template.html' },
     }
 };
 
@@ -30,17 +30,18 @@ function replacePlaceholders(content, variables) {
     return output;
 }
 
-function buildPage(pageName, templatePath, allVariables) {
-    const template = fs.readFileSync(templatePath, 'utf8');
-    const finalOutput = replacePlaceholders(template, allVariables);
-    // Adjust output path to handle index.html at root
-    const outputPath = pageName === 'index' ? `index.html` : `dist/${pageName}.html`;
+function buildPage(pageName, pageConfig, allVariables) {
+    const template = fs.readFileSync(pageConfig.templatePath, 'utf8');
+    const pageContent = fs.readFileSync(pageConfig.contentPath, 'utf8');
 
-    // Create directory if it doesn't exist
-    const dir = 'dist';
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
+    const variables = {
+        ...allVariables,
+        PAGE_CONTENT: pageContent,
+        PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1) // Capitalize page name for title
+    };
+
+    const finalOutput = replacePlaceholders(template, variables);
+    const outputPath = `${pageName}.html`;
 
     fs.writeFileSync(outputPath, finalOutput);
     console.log(`✅ File ${outputPath} has been created!`);
@@ -65,7 +66,7 @@ function main() {
         };
 
         for (const [pageName, pageConfig] of Object.entries(config.pages)) {
-            buildPage(pageName, pageConfig.templatePath, allVariables);
+            buildPage(pageName, pageConfig, allVariables);
         }
 
         console.log('\n🚀 All pages have been built successfully!');

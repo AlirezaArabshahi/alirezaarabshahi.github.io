@@ -40,14 +40,27 @@ class Router {
     }
 
     async loadPage(page, addToHistory = true) {
-        const path = `dist/${this.routes[page] || '404'}.html`;
+        // If it's the initial page load, we don't need to fetch,
+        // because the content is already there.
+        if (this.isInitialLoad) {
+            this.isInitialLoad = false;
+            const event = new CustomEvent('page-loaded', { detail: { page } });
+            window.dispatchEvent(event);
+            return;
+        }
+
+        const path = `${this.routes[page] || '404'}.html`;
         try {
             const response = await fetch(path);
             if (!response.ok) throw new Error(`Page not found at ${path}`);
-            const content = await response.text();
+            const html = await response.text();
 
-            this.mainContent.innerHTML = content;
-            this.mainContent.style.display = 'block';
+            // Create a temporary element to parse the fetched HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const newContent = tempDiv.querySelector('#main-page').innerHTML;
+
+            this.mainContent.innerHTML = newContent;
 
             if (addToHistory) {
                 const newPath = page === this.defaultPage ? '/' : `/${page}.html`;
@@ -61,8 +74,12 @@ class Router {
 
         } catch (error) {
             console.error('Error loading page:', error);
-            const response = await fetch('dist/404.html');
-            this.mainContent.innerHTML = await response.text();
+            // On error, load the 404 page content
+            const response = await fetch('404.html');
+            const html = await response.text();
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            this.mainContent.innerHTML = tempDiv.querySelector('#main-page').innerHTML;
         }
     }
 
@@ -74,6 +91,7 @@ class Router {
     }
 
     setupInitialPage() {
+        this.isInitialLoad = true; // Flag to prevent initial fetch
         const initialPage = this.getPageFromPath();
         this.loadPage(initialPage, false);
     }
