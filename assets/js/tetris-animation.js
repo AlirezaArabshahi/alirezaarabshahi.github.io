@@ -257,11 +257,34 @@ class TetrisAnimation {
     animate() {
         this.update();
         this.draw();
-        requestAnimationFrame(() => this.animate());
+        this.animationFrameId = requestAnimationFrame(() => this.animate());
+    }
+
+    stop() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+            console.log('Tetris animation stopped.');
+        }
     }
 }
 
-// Initialize when page loads
+// Global variable to hold the current TetrisAnimation instance
+let currentTetrisAnimationInstance = null;
+
+function initializeTetris() {
+    const existingCanvas = document.getElementById('tetris-canvas');
+    if (existingCanvas) {
+        // Stop any existing animation before creating a new one
+        if (currentTetrisAnimationInstance) {
+            currentTetrisAnimationInstance.stop();
+        }
+        currentTetrisAnimationInstance = new TetrisAnimation();
+    }
+}
+
+window.initializeTetris = initializeTetris;
+
 window.addEventListener('load', () => {
-    new TetrisAnimation();
+    initializeTetris();
 });

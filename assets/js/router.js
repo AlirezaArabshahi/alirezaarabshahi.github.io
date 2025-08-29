@@ -26,7 +26,8 @@ class Router {
 
     handleLinkClick(event) {
         const link = event.target.closest('a[data-page]');
-        if (link) {
+        // Only handle links that are not navbar-links (those are handled by ElasticNavTransition)
+        if (link && !link.classList.contains('navbar-link')) {
             event.preventDefault();
             const page = link.getAttribute('data-page');
             this.navigateTo(page);
@@ -61,6 +62,13 @@ class Router {
             const newContent = tempDiv.querySelector('#main-page').innerHTML;
 
             this.mainContent.innerHTML = newContent;
+
+            // Manually trigger re-initialization of animations if the page is home
+            if (page === 'home') {
+                if (window.initializeTetris) {
+                    window.initializeTetris();
+                }
+            }
 
             if (addToHistory) {
                 const newPath = page === this.defaultPage ? '/' : `/${page}.html`;
