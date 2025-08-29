@@ -6,11 +6,11 @@
 class Router {
     constructor() {
         this.routes = {
-            '': 'home.html',
-            'home': 'pages/home.html',
-            'about': 'about.html',
-            'contact': 'contact.html',
-            404: 'pages/404.html',
+            '': 'home',
+            'home': 'home',
+            'about': 'about',
+            'contact': 'contact',
+            '404': '404',
         };
         this.mainContent = document.getElementById('main-page');
         this.defaultPage = 'home';
@@ -21,43 +21,56 @@ class Router {
         });
 
         this.setupInitialPage();
+        document.addEventListener('click', this.handleLinkClick.bind(this));
+    }
+
+    handleLinkClick(event) {
+        const link = event.target.closest('a[data-page]');
+        if (link) {
+            event.preventDefault();
+            const page = link.getAttribute('data-page');
+            this.navigateTo(page);
+        }
     }
 
     getPageFromPath() {
-        const path = window.location.pathname.replace(/^\//, '');
-        return this.routes[path] ? path : (path === '' ? this.defaultPage : '404');
+        const path = window.location.pathname.replace(/^\//, '').replace(/\.html$/, '');
+        const page = path.split('/').pop() || this.defaultPage;
+        return this.routes[page] ? page : '404';
     }
 
     async loadPage(page, addToHistory = true) {
-        const path = this.routes[page] || 'pages/404.html';
+        const path = `partials/${this.routes[page] || '404'}.html`;
         try {
-            const response = await fetch('/' + path);
-            if (!response.ok) throw new Error('Page not found');
+            const response = await fetch(path);
+            if (!response.ok) throw new Error(`Page not found at ${path}`);
             const content = await response.text();
+
             this.mainContent.innerHTML = content;
             this.mainContent.style.display = 'block';
 
             if (addToHistory) {
-                const newPath = page === this.defaultPage ? '/' : `/${page}`;
+                const newPath = page === this.defaultPage ? '/' : `/${page}.html`;
                 history.pushState({ page }, null, newPath);
             }
 
             document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} | Alireza Arabshahi`;
 
-            // Dispatch a custom event to notify that the page has loaded
             const event = new CustomEvent('page-loaded', { detail: { page } });
             window.dispatchEvent(event);
-            
+
         } catch (error) {
             console.error('Error loading page:', error);
-            const response = await fetch('pages/404.html');
+            const response = await fetch('partials/404.html');
             this.mainContent.innerHTML = await response.text();
-            this.mainContent.style.display = 'block';
         }
     }
 
     navigateTo(page) {
-        this.loadPage(page, true);
+        const currentPage = this.getPageFromPath();
+        if (page !== currentPage) {
+            this.loadPage(page, true);
+        }
     }
 
     setupInitialPage() {

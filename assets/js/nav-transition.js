@@ -11,22 +11,13 @@ class ElasticNavTransition {
     }
     
     init() {
-        const navLinks = document.querySelectorAll('.navbar-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // فقط لینک‌هایی که data-page دارند را مدیریت کن
-                if (link.hasAttribute('data-page')) {
-                    e.preventDefault();
-                    
-                    if (this.isAnimating) {
-                        return;
-                    }
-                    
-                    const targetPage = link.getAttribute('data-page');
-                    this.handleNavClick(e, targetPage);
-                }
-                // لینک‌های دیگر (مثل گیت‌هاب) به صورت عادی کار می‌کنند
-            });
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('.navbar-link');
+            if (link && link.hasAttribute('data-page')) {
+                e.preventDefault();
+                const targetPage = link.getAttribute('data-page');
+                this.handleNavClick(e, targetPage);
+            }
         });
 
         // Listen for the custom 'page-loaded' event
@@ -43,10 +34,8 @@ class ElasticNavTransition {
     }
 
     handleNavClick(event, targetPage) {
-        event.preventDefault();
         const currentPage = window.router.getPageFromPath();
         if (this.isAnimating || currentPage === targetPage) return;
-
         this.stretchGrid(event.target, targetPage);
     }
     
