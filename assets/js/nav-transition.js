@@ -148,30 +148,39 @@ class ElasticNavTransition {
     }
 
     playReturnAnimation() {
-        console.log('playReturnAnimation called. isAnimating:', this.isAnimating);
         if (!this.tetrisCanvas) return;
 
-        this.isAnimating = true;
-
-        this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        // Immediately set the canvas to the "snapped" state (header state) without transition
+        this.tetrisCanvas.style.transition = 'none';
         this.tetrisCanvas.style.transform = `
-            translateY(0)
-            scale(1)
-            rotate(0deg)
+            translateY(-60vh)
+            scale(0.05)
+            rotate(360deg)
         `;
-        this.tetrisCanvas.style.opacity = '1';
+        this.tetrisCanvas.style.opacity = '0.2';
 
-        // Remove grid-injected classes to reset header
-        const navbar = document.querySelector('.navbar');
-        if (navbar) navbar.classList.remove('grid-injected');
-        document.body.classList.remove('grid-injected');
+        // Force a reflow to ensure the initial state is applied before the transition
+        this.tetrisCanvas.offsetHeight;
 
-        // Reset immediately but keep isAnimating true during animation
-        this.reset();
-        
+        // Apply the return animation after a very short delay
+        setTimeout(() => {
+            this.isAnimating = true;
+            this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            this.tetrisCanvas.style.transform = `
+                translateY(0)
+                scale(1)
+                rotate(0deg)
+            `;
+            this.tetrisCanvas.style.opacity = '1';
+        }, 10); // Small delay to allow the browser to register the initial state
+
         // Set isAnimating to false after animation completes
         setTimeout(() => {
             this.isAnimating = false;
+            // Remove grid-injected classes to reset header AFTER animation
+            const navbar = document.querySelector('.navbar');
+            if (navbar) navbar.classList.remove('grid-injected');
+            document.body.classList.remove('grid-injected');
         }, 400);
     }
     
@@ -184,10 +193,6 @@ class ElasticNavTransition {
         this.tetrisCanvas.style.opacity = '1';
         
         this.isAnimating = false;
-        // Remove grid-injected classes to reset header
-        const navbar = document.querySelector('.navbar');
-        if (navbar) navbar.classList.remove('grid-injected');
-        document.body.classList.remove('grid-injected');
     }
 
     setupTransitionListener() {
