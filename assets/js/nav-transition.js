@@ -5,19 +5,12 @@
 
 class ElasticNavTransition {
     constructor() {
-        this.tetrisCanvas = document.getElementById('tetris-canvas');
         this.isAnimating = false;
-        this.pendingNavigation = null;
         this.handleTransitionEnd = this.handleTransitionEnd.bind(this); // Bind the event handler
         this.init();
         
-        // Check if we're on a page with tetrisCanvas
-        if (!this.tetrisCanvas) {
-            console.log('Tetris canvas not found, navigation will work without animations');
-        } else {
-            // Call setupTransitionListener here for initial setup
-            this.setupTransitionListener();
-        }
+        // Initial setup for the transition listener
+        this.setupTransitionListener();
     }
     
     init() {
@@ -32,50 +25,44 @@ class ElasticNavTransition {
 
         // Listen for the custom 'page-loaded' event
         window.addEventListener('page-loaded', (e) => {
-            // Re-acquire the canvas on every page change, as it's only present on the home page
-            this.tetrisCanvas = document.getElementById('tetris-canvas');
-            
             const isHomePage = e.detail.page === 'home';
             const gridInjected = document.body.classList.contains('grid-injected');
+            const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire on every page change
 
-            if (isHomePage && gridInjected) {
+            if (isHomePage && tetrisCanvas && gridInjected) { // Only play return animation if canvas exists and grid was injected
                 this.playReturnAnimation();
-            } else if (!isHomePage && gridInjected) {
-                // Reset animation flag when on other pages
-                this.isAnimating = false;
+            } else if (!isHomePage) { // If it's not the home page
+                // Ensure grid-injected class is present on body and navbar
+                // This handles direct navigation to sub-pages
+                document.body.classList.add('grid-injected');
+                const navbar = document.querySelector('.navbar');
+                if (navbar) navbar.classList.add('grid-injected');
             }
-            // Re-setup the transition listener whenever the canvas might have changed
-            this.setupTransitionListener();
+            this.isAnimating = false; // Reset animation flag on page load for consistent state
+            // Re-setup the transition listener only if tetrisCanvas exists
+            if (tetrisCanvas) {
+                this.setupTransitionListener();
+            }
         });
 
         // The event listener is now set up via setupTransitionListener method
     }
 
     handleTransitionEnd(e) {
-        console.log('Transition ended:', e.propertyName, 'Pending navigation:', this.pendingNavigation, 'grid-injected:', document.body.classList.contains('grid-injected'));
-        // Only proceed if this is the transform transition and we have a pending navigation
-        if (e.propertyName === 'transform' && this.pendingNavigation && document.body.classList.contains('grid-injected')) {
-            const targetPage = this.pendingNavigation;
-            this.pendingNavigation = null;
-            console.log('Navigating to:', targetPage);
-            // Small delay to ensure animation is complete
-            setTimeout(() => {
-                window.router.navigateTo(targetPage);
-                this.isAnimating = false; // Reset isAnimating after navigation
-            }, 50);
+        // Only proceed if this is the transform transition and we are dealing with a grid-injected body
+        if (e.propertyName === 'transform' && document.body.classList.contains('grid-injected')) {
+            this.isAnimating = false; // Reset isAnimating after animation completes
         }
     }
 
     handleNavClick(event, targetPage) {
-        console.log('handleNavClick called. Target:', targetPage, 'isAnimating:', this.isAnimating);
         const currentPage = window.router.getPageFromPath();
         if (this.isAnimating || currentPage === targetPage) {
-            console.log('Navigation prevented: isAnimating or same page.');
             return;
         }
         
-        // this.tetrisCanvas is re-acquired on page-load, so we can just check for its existence
-        if (this.tetrisCanvas) {
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (tetrisCanvas) {
             this.stretchGrid(event.target, targetPage);
         } else {
             // If tetrisCanvas doesn't exist, navigate directly
@@ -84,12 +71,12 @@ class ElasticNavTransition {
     }
     
     stretchGrid(clickedElement, targetPage) {
-        if (this.isAnimating || !this.tetrisCanvas) return;
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (this.isAnimating || !tetrisCanvas) return;
         
         this.isAnimating = true;
-        console.log('stretchGrid: Animating canvas:', this.tetrisCanvas);
         
-        const canvasRect = this.tetrisCanvas.getBoundingClientRect();
+        const canvasRect = tetrisCanvas.getBoundingClientRect();
         const linkRect = clickedElement.getBoundingClientRect();
         
         // Calculate stretch direction
@@ -97,8 +84,8 @@ class ElasticNavTransition {
         const deltaY = (linkRect.top + linkRect.height/2) - (canvasRect.top + canvasRect.height/2);
         
         // Fast elastic stretch like taffy
-        this.tetrisCanvas.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-        this.tetrisCanvas.style.transformOrigin = 'center center';
+        tetrisCanvas.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        tetrisCanvas.style.transformOrigin = 'center center';
         
         // Elastic stretch effect
         const stretchX = 1 + Math.abs(deltaX) * 0.002;
@@ -106,7 +93,7 @@ class ElasticNavTransition {
         const skewX = deltaX * 0.03;
         const skewY = deltaY * 0.03;
         
-        this.tetrisCanvas.style.transform = `
+        tetrisCanvas.style.transform = `
             translate(${deltaX * 0.4}px, ${deltaY * 0.4}px)
             scaleX(${stretchX})
             scaleY(${stretchY})
@@ -120,20 +107,21 @@ class ElasticNavTransition {
     }
     
     snapToHeader(targetPage) {
-        if (!this.tetrisCanvas) {
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (!tetrisCanvas) {
             // If tetrisCanvas doesn't exist, navigate directly
             window.router.navigateTo(targetPage);
             return;
         }
         
         // Fast snap to header with elastic bounce
-        this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        this.tetrisCanvas.style.transform = `
+        tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        tetrisCanvas.style.transform = `
             translateY(-60vh)
             scale(0.05)
             rotate(360deg)
         `;
-        this.tetrisCanvas.style.opacity = '0.2';
+        tetrisCanvas.style.opacity = '0.2';
         
         // Header injection with persistent class
         const navbar = document.querySelector('.navbar');
@@ -148,32 +136,33 @@ class ElasticNavTransition {
     }
 
     playReturnAnimation() {
-        if (!this.tetrisCanvas) return;
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (!tetrisCanvas) return;
 
         // Immediately set the canvas to the "snapped" state (header state) without transition
-        this.tetrisCanvas.style.transition = 'none';
-        this.tetrisCanvas.style.transform = `
+        tetrisCanvas.style.transition = 'none';
+        tetrisCanvas.style.transform = `
             translateY(-60vh)
             scale(0.05)
             rotate(360deg)
         `;
-        this.tetrisCanvas.style.opacity = '0.2';
+        tetrisCanvas.style.opacity = '0.2';
 
         // Force a reflow to ensure the initial state is applied before the transition
-        this.tetrisCanvas.offsetHeight;
+        tetrisCanvas.offsetHeight;
 
         // Apply the return animation after a very short delay
         setTimeout(() => {
             this.isAnimating = true;
-            this.tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            this.tetrisCanvas.style.transform = `
+            tetrisCanvas.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            tetrisCanvas.style.transform = `
                 translateY(0)
                 scale(1)
                 rotate(0deg)
             `;
-            this.tetrisCanvas.style.opacity = '1';
+            tetrisCanvas.style.opacity = '1';
         }, 10); // Small delay to allow the browser to register the initial state
-
+        
         // Remove grid-injected classes immediately as the return animation starts
         const navbar = document.querySelector('.navbar');
         if (navbar) navbar.classList.remove('grid-injected');
@@ -186,22 +175,21 @@ class ElasticNavTransition {
     }
     
     reset() {
-        console.log('reset called.');
-        if (!this.tetrisCanvas) return;
-        
-        this.tetrisCanvas.style.transition = 'all 0.4s ease';
-        this.tetrisCanvas.style.transform = 'none';
-        this.tetrisCanvas.style.opacity = '1';
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (tetrisCanvas) {
+            tetrisCanvas.style.transition = 'all 0.4s ease';
+            tetrisCanvas.style.transform = 'none';
+            tetrisCanvas.style.opacity = '1';
+        }
         
         this.isAnimating = false;
     }
 
     setupTransitionListener() {
-        this.tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
-        console.log('setupTransitionListener called. tetrisCanvas:', this.tetrisCanvas);
-        if (this.tetrisCanvas) {
-            this.tetrisCanvas.removeEventListener('transitionend', this.handleTransitionEnd);
-            this.tetrisCanvas.addEventListener('transitionend', this.handleTransitionEnd);
+        const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire the canvas
+        if (tetrisCanvas) {
+            tetrisCanvas.removeEventListener('transitionend', this.handleTransitionEnd);
+            tetrisCanvas.addEventListener('transitionend', this.handleTransitionEnd);
         }
     }
 }
