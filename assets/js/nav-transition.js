@@ -29,24 +29,24 @@ class ElasticNavTransition {
             });
         });
 
-        // Listen for hash changes to trigger return animation if navigating back to 'about'
-        window.addEventListener('hashchange', () => {
-            const currentPage = router.getCurrentPage();
-            const newHash = window.location.hash.replace(/^#\/?/, '');
-            const newPage = newHash === '' ? 'about' : newHash;
+        // Listen for the custom 'page-loaded' event
+        window.addEventListener('page-loaded', (e) => {
+            const isHomePage = e.detail.page === 'home';
+            const gridInjected = document.body.classList.contains('grid-injected');
 
-            if (newPage === 'about' && !this.isAnimating) {
+            if (isHomePage && gridInjected) {
                 this.playReturnAnimation();
+            } else if (!isHomePage && !gridInjected) {
+                this.isAnimating = false;
             }
         });
     }
-    
+
     handleNavClick(event, targetPage) {
         event.preventDefault();
-        
-        if (this.isAnimating || router.getCurrentPage() === targetPage) return;
-        
-        // انیمیشن از هر صفحه‌ای اجرا می‌شود
+        const currentPage = window.router.getPageFromPath();
+        if (this.isAnimating || currentPage === targetPage) return;
+
         this.stretchGrid(event.target, targetPage);
     }
     
@@ -102,23 +102,15 @@ class ElasticNavTransition {
         document.body.classList.add('grid-injected');
         
         setTimeout(() => {
-            this.showPage(targetPage);
-            router.navigateTo(targetPage);
+            window.router.navigateTo(targetPage);
         }, 600);
-    }
-    
-    showPage(targetPage) {
-        // انیمیشن تمام شد
-        this.isAnimating = false;
-
     }
 
     playReturnAnimation() {
-        if (this.isAnimating || !this.tetrisCanvas) return;
+        if (!this.tetrisCanvas) return;
 
         this.isAnimating = true;
 
-        // Reverse snapToHeader animation
         this.tetrisCanvas.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         this.tetrisCanvas.style.transform = `
             translateY(0)
@@ -151,6 +143,13 @@ class ElasticNavTransition {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new ElasticNavTransition();
-});
+// Wait for the router to be initialized before setting up the transition
+function waitForRouter() {
+    if (window.router) {
+        new ElasticNavTransition();
+    } else {
+        setTimeout(waitForRouter, 100); // Check again in 100ms
+    }
+}
+
+document.addEventListener('DOMContentLoaded', waitForRouter);

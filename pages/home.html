@@ -1,22 +1,25 @@
-<div class="page-container">
-    <h1 style="align-self: center">Home</h1>
-    <p>
-        Welcome to the sophisticated SPA router demo! This is a simple demonstration of a single-page application 
-        built with vanilla JavaScript. The router provides smooth navigation between pages without full page reloads.
-    </p>
-    <p>
-        This router system includes features like:
-    </p>
-    <ul style="color: #cbd5e1; margin: 1rem 0; padding-left: 2rem;">
-        <li>Hash-based and history API routing</li>
-        <li>Dynamic content loading</li>
-        <li>Route guards and authentication</li>
-        <li>Before/after navigation hooks</li>
-        <li>Active link highlighting</li>
-        <li>Error handling and 404 pages</li>
-    </ul>
-    <p>
-        Navigate using the links in the header to see the router in action. Check out the source code to see how 
-        everything works together!
-    </p>
-</div>
+
+
+   <div class="main-content">
+        <div class="container" id="main-content">
+            <h1>{{NAME}}</h1>
+            <h2>{{TITLE}}</h2>
+
+            <div class="skills">
+                {{SKILLS_HTML}}
+            </div>
+
+            <p>{{DESCRIPTION}}</p>
+
+            <div class="links">
+                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
+                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
+                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
+                <a href="{{EMAIL_URL}}">Email</a>
+            </div>
+        </div>
+
+        <div class="tetris-container">
+            <canvas id="tetris-canvas"></canvas>
+        </div>
+    </div>
