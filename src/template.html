@@ -22,8 +22,9 @@
                 <span class="navbar-brand">{{LOGO}}</span>
             </div>
             <div class="navbar-center">
-                <a href="#" class="navbar-link">Works</a>
-                <a href="#" class="navbar-link">Posts</a>
+                <a href="/" onclick="route(event)" class="navbar-link" data-page="/harchi">Home</a>
+                <a href="/about" onclick="route(event)" class="navbar-link" data-page="/about">About</a>
+                <a href="/contact" onclick="route(event)" class="navbar-link" data-page="/contact">Contact</a>
             </div>
             <div class="navbar-right">
                 <a href="{{GITHUB_URL}}" target="_blank" class="navbar-link github-link">
@@ -36,6 +37,35 @@
             </div>
         </div>
     </nav>
+
+
+
+   <div class="main-content">
+        <div class="container" id="main-content">
+            <h1>{{NAME}}</h1>
+            <h2>{{TITLE}}</h2>
+
+            <div class="skills">
+                {{SKILLS_HTML}}
+            </div>
+
+            <p>{{DESCRIPTION}}</p>
+
+            <div class="links">
+                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
+                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
+                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
+                <a href="{{EMAIL_URL}}">Email</a>
+            </div>
+        </div>
+
+        <!-- Router content will be loaded here -->
+        <div id="main-page" style="display: none;"></div>
+
+        <div class="tetris-container">
+            <canvas id="tetris-canvas"></canvas>
+        </div>
+    </div>
 
     <div class="job-banner" id="jobBanner">
         🚀 Available for New Opportunities! Looking for exciting projects to work on.
@@ -64,35 +94,7 @@
         </p>
     </div>
 
-   <div class="main-content">
-        <div class="container">
-            <h1>{{NAME}}</h1>
-            <h2>{{TITLE}}</h2>
-
-            <div class="skills">
-                {{SKILLS_HTML}}
-            </div>
-
-            <p>{{DESCRIPTION}}</p>
-
-            <!-- <p>{{LAST_JOB_EXPERIENCE}}</p> -->
-
-            <!-- <p>{{LOOKING_FOR_JOB}}</p> -->
-
-            <!-- <p>I am based in {{LOCATION}}.</p> -->
-
-            <div class="links">
-                <a href="{{GITHUB_URL}}" target="_blank">GitHub</a>
-                <a href="{{LINKEDIN_URL}}" target="_blank">LinkedIn</a>
-                <a href="{{TELEGRAM_URL}}" target="_blank">Telegram</a>
-                <a href="{{EMAIL_URL}}">Email</a>
-            </div>
-        </div>
-
-        <div class="tetris-container">
-            <canvas id="tetris-canvas"></canvas>
-        </div>
-    </div>
+    <script src="assets/js/router.js"></script>
     <script src="assets/js/tetris-animation.js"></script>
     <script src="assets/js/job-features.js"></script>
 </body>

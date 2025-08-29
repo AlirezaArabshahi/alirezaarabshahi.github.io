@@ -64,10 +64,19 @@ body {
     text-decoration: none;
     font-size: 0.9rem;
     position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
 .navbar-link:hover {
     color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .source-link {
@@ -290,6 +299,15 @@ p {
         border-radius: 0;
         background: linear-gradient(135deg, rgba(0, 20, 40, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%);
         border: none;
+    }
+    
+    /* Router page transitions */
+    #main-page {
+        transition: opacity 0.3s ease;
+    }
+    
+    #main-page.loading {
+        opacity: 0.7;
     }
 }
 
