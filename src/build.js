@@ -32,15 +32,19 @@ function replacePlaceholders(content, variables) {
 
 function buildPage(pageName, pageConfig, allVariables) {
     const template = fs.readFileSync(pageConfig.templatePath, 'utf8');
-    const pageContent = fs.readFileSync(pageConfig.contentPath, 'utf8');
+    const rawPageContent = fs.readFileSync(pageConfig.contentPath, 'utf8');
 
-    const variables = {
+    // First, replace placeholders within the page's own content
+    const processedPageContent = replacePlaceholders(rawPageContent, allVariables);
+
+    const finalVariables = {
         ...allVariables,
-        PAGE_CONTENT: pageContent,
-        PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1) // Capitalize page name for title
+        PAGE_CONTENT: processedPageContent,
+        PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1)
     };
 
-    const finalOutput = replacePlaceholders(template, variables);
+    // Then, replace placeholders in the main template
+    const finalOutput = replacePlaceholders(template, finalVariables);
     const outputPath = `${pageName}.html`;
 
     fs.writeFileSync(outputPath, finalOutput);
