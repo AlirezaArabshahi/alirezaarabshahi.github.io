@@ -5,12 +5,13 @@ A modern, interactive personal website built with a clean template system and dy
 ## 🚀 Features
 
 - **Interactive Tetris Animation** - Canvas-based tech-themed falling blocks
+- **Client-Side Routing** - Smooth page transitions without full reloads.
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Template System** - Separate content from code for easy maintenance
 - **Clean Architecture** - Modular CSS, JavaScript, and HTML structure
-- framework agnostic - you should only need to know basic knowledgeof web development to modify 
+- framework agnostic - you should only need to know basic knowledgeof web development to modify
 
-**Want to use this code for your project?** 
+**Want to use this code for your project?**
 
 Absolutely! I'm happy to share my work with the developer community. The answer is **yes, with proper attribution**.
 
@@ -27,12 +28,23 @@ Absolutely! I'm happy to share my work with the developer community. The answer 
 │   ├── css/
 │   │   └── styles.css          # Main stylesheet
 │   └── js/
-│       └── tetris-animation.js # Interactive animation
-├── src/                        # Development files (local only)
-│   ├── template.html          # HTML template with variables
-│   ├── variables.json         # Content variables
-│   └── build.js              # Build script
-├── index.html                 # Production website
+│       ├── router.js           # Client-side router
+│       ├── nav-transition.js   # Page transition animations
+│       └── tetris-animation.js # Interactive background animation
+├── src/                        # Development files
+│   ├── components/
+│   │   ├── navbar.html         # Navbar component
+│   │   ├── job-popup.html      # Job popup component
+│   │   ├── about.html          # Content for About page
+│   │   └── contact.html        # Content for Contact page
+│   ├── 404.html                # 404 page
+│   ├── home.html               # Content for Home page
+│   ├── template.html           # Main HTML site template
+│   ├── variables.json          # Global text and link variables
+│   └── build.js                # Node.js build script
+├── index.html                  # Generated home page (production)
+├── about.html                  # Generated about page (production)
+├── contact.html                # Generated contact page (production)
 └── README.md
 ```
 
@@ -46,35 +58,39 @@ Absolutely! I'm happy to share my work with the developer community. The answer 
 
 1. **Clone the repository**
 
-2. **Edit content** (local development only)
+2. **Install dependencies**
    ```bash
-   # Edit variables.json to change content
-   # Edit template.html to change structure
+   npm install
    ```
 
-3. **Build the website**
+3. **Edit content**
+   - Edit `src/variables.json` to change global content (name, skills, links).
+   - Edit page content in `src/home.html`, `src/components/about.html`, and `src/components/contact.html`.
+   - Edit `src/template.html` to change the main site structure.
+
+4. **Build the website**
    ```bash
    # Using npm script (recommended)
    npm run build
-   
-   # Or run directly
-   node src/build.js
    ```
-   The file `index.html` will be created in the root directory
-4. **Preview the website**
+   This will generate `index.html`, `about.html`, and `contact.html` in the root directory.
+
+5. **Preview the website**
    ```bash
    # Open index.html in your browser
    ```
 
 ### Content Management
 
-Content is managed through a simple template system:
+Content is managed through a multi-page template system that separates structure, content, and data:
 
-- **variables.json** - Contains all text content, links, and metadata
-- **template.html** - HTML structure with `{{VARIABLE}}` placeholders
-- **build.js** - Processes template and generates final HTML
+- **`src/variables.json`**: Contains all global text content, links, and metadata.
+- **`src/template.html`**: The main HTML structure with `{{VARIABLE}}` placeholders for content that is consistent across all pages.
+- **`src/components/`**: Holds reusable HTML snippets (`navbar.html`) and some page content (`about.html`, `contact.html`).
+- **Page-specific content**: `src/home.html` contains the content for the homepage.
+- **`src/build.js`**: This script reads the template, variables, components, and page content, combines them, and generates the final static HTML files (`index.html`, `about.html`, etc.).
 
-Example content update:
+Example content update in `variables.json`:
 ```json
 {
   "NAME": "Your Name",
@@ -118,7 +134,7 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial 
 
 ## ⭐ Show Your Support
 
-If you find this project helpful or inspiring, please consider 
+If you find this project helpful or inspiring, please consider:
 
 - **⭐ Starring this repository**.
-- **🔗 Sharing it** 
+- **🔗 Sharing it**
