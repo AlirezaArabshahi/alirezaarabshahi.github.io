@@ -11,6 +11,14 @@ class ElasticNavTransition {
         
         // Initial setup for the transition listener
         this.setupTransitionListener();
+
+        // Fallback for direct navigation to sub-pages
+        const currentPage = window.router.getPageFromPath();
+        if (currentPage !== 'home') {
+            document.body.classList.add('grid-injected');
+            const navbar = document.querySelector('.navbar');
+            if (navbar) navbar.classList.add('grid-injected');
+        }
     }
     
     init() {
@@ -32,13 +40,8 @@ class ElasticNavTransition {
             if (isHomePage && tetrisCanvas && gridInjected) { // Only play return animation if canvas exists and grid was injected
                 this.playReturnAnimation();
             } else if (!isHomePage) { // If it's not the home page
-                // Ensure grid-injected class is present on body and navbar
-                // This handles direct navigation to sub-pages
-                document.body.classList.add('grid-injected');
-                const navbar = document.querySelector('.navbar');
-                if (navbar) navbar.classList.add('grid-injected');
+                this.isAnimating = false; // Reset animation flag on page load for consistent state
             }
-            this.isAnimating = false; // Reset animation flag on page load for consistent state
             // Re-setup the transition listener only if tetrisCanvas exists
             if (tetrisCanvas) {
                 this.setupTransitionListener();
@@ -149,7 +152,7 @@ class ElasticNavTransition {
         tetrisCanvas.style.opacity = '0.2';
 
         // Force a reflow to ensure the initial state is applied before the transition
-        tetrisCanvas.offsetHeight;
+        tetrisCanvas.offsetHeight; 
 
         // Apply the return animation after a very short delay
         setTimeout(() => {
