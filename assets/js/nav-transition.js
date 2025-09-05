@@ -14,7 +14,7 @@ class ElasticNavTransition {
 
         // Fallback for direct navigation to sub-pages
         const currentPage = window.router.getPageFromPath();
-        if (currentPage !== 'home') {
+        if (currentPage !== 'index') {
             document.body.classList.add('grid-injected');
             const navbar = document.querySelector('.navbar');
             if (navbar) navbar.classList.add('grid-injected');
@@ -33,7 +33,7 @@ class ElasticNavTransition {
 
         // Listen for the custom 'page-loaded' event
         window.addEventListener('page-loaded', (e) => {
-            const isHomePage = e.detail.page === 'home';
+            const isHomePage = e.detail.page === 'index';
             const gridInjected = document.body.classList.contains('grid-injected');
             const tetrisCanvas = document.getElementById('tetris-canvas'); // Re-acquire on every page change
 

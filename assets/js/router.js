@@ -5,14 +5,14 @@
 class Router {
     constructor() {
         this.routes = {
-            '': 'home',
-            'home': 'home',
+            '': 'index',
+            'index': 'index',
             'about': 'about',
             'contact': 'contact',
             '404': '404',
         };
         this.mainContent = document.getElementById('main-page');
-        this.defaultPage = 'home';
+        this.defaultPage = 'index';
 
         window.addEventListener('popstate', (event) => {
             const page = event.state ? event.state.page : this.getPageFromPath();
@@ -62,8 +62,8 @@ class Router {
 
             this.mainContent.innerHTML = newContent;
 
-            // Manually trigger re-initialization of animations if the page is home
-            if (page === 'home') {
+            // Manually trigger re-initialization of animations if the page is index
+            if (page === 'index') {
                 if (window.initializeTetris) {
                     window.initializeTetris();
                 }

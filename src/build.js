@@ -8,14 +8,14 @@ import fs from 'fs';
 const config = {
     variablesPath: 'src/variables.json',
     components: {
-        NAVBAR: 'src/components/navbar.html',
-        JOB_POPUP: 'src/components/job-popup.html'
+        NAVBAR: 'src/components/AppNavbar.html',
+        JOB_POPUP: 'src/components/AppJobPopup.html'
     },
     pages: {
-        'index': { contentPath: 'src/home.html', templatePath: 'src/template.html' },
-        'home': { contentPath: 'src/home.html', templatePath: 'src/template.html' },
-        'about': { contentPath: 'src/components/about.html', templatePath: 'src/template.html' },
-        'contact': { contentPath: 'src/components/contact.html', templatePath: 'src/template.html' },
+        'index': { contentPath: 'index.html', templatePath: 'src/template.html' },
+        'home': { contentPath: 'src/pages/PageHome.html', templatePath: 'src/template.html' },
+        'about': { contentPath: 'src/pages/PageAbout.html', templatePath: 'src/template.html' },
+        'contact': { contentPath: 'src/pages/PageContact.html', templatePath: 'src/template.html' },
     }
 };
 
