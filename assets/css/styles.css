@@ -235,33 +235,6 @@ p {
     animation: fadeInUp 0.3s ease-out 0.25s both;
 }
 
-.links {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.3s ease-out 0.3s both;
-}
-
-.links a {
-    color: #e2e8f0;
-    text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
-    position: relative;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.links a:hover {
-    background-color: #fff;
-    color: #000;
-    transform: translateY(-2px) scale(1.05);
-}
-
 @media (max-width: 1024px) {
 
     .navbar-center {
@@ -356,16 +329,6 @@ p {
     .skill {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
-    }
-
-    .links {
-        justify-content: flex-start;
-        gap: 1rem;
-    }
-
-    .links a {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
     }
 
     /* .tetris-container {

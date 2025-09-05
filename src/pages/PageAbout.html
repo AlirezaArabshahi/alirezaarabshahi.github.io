@@ -25,17 +25,21 @@
         </div>
         
         <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Usage Example</h3>
-        <pre style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;"><code>// Initialize router and add routes
-const router = new SPARouter();
+        <pre style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;">
+            <code>
+                // Initialize router and add routes
+                const router = new SPARouter();
 
-router.addRoutes({
-    '/': 'pages/home.html',
-    '/about': 'pages/about.html',
-    '/contact': 'pages/contact.html',
-    '/404': 'pages/404.html'
-});
+                router.addRoutes({
+                    '/': 'pages/home.html',
+                    '/about': 'pages/about.html',
+                    '/contact': 'pages/contact.html',
+                    '/404': 'pages/404.html'
+                });
 
-// Navigate programmatically
-router.navigateTo('/about');</code></pre>
+                // Navigate programmatically
+                router.navigateTo('/about');
+            </code>
+        </pre>
     </div>
 </div>
