@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 8rem 20px 20px;
-    animation: fadeIn 1s ease-in;
+    animation: fadeIn 0.4s ease-in;
     overflow-x: hidden;
 }
 
@@ -33,8 +33,9 @@ body.grid-injected .navbar {
     background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
     backdrop-filter: blur(10px);
     background-image: linear-gradient(to right, rgba(74, 144, 226, 0.3) 0.5px, transparent 0.5px),
-                      linear-gradient(to bottom, rgba(74, 144, 226, 0.3) 0.5px, transparent 0.5px);
-    background-size: 15px 15px; /* Adjust grid size as needed */
+        linear-gradient(to bottom, rgba(74, 144, 226, 0.3) 0.5px, transparent 0.5px);
+    background-size: 15px 15px;
+    /* Adjust grid size as needed */
     border-bottom: none;
 }
 
@@ -84,7 +85,7 @@ body.grid-injected .navbar {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.source-link {
+.github-link {
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
 }
@@ -182,7 +183,7 @@ h1 {
     font-weight: 600;
     position: relative;
     z-index: 1;
-    animation: fadeInUp 0.6s ease-out 0.2s both;
+    animation: fadeInUp 0.3s ease-out 0.1s both;
 }
 
 h2 {
@@ -194,7 +195,7 @@ h2 {
     z-index: 1;
     padding-left: 1rem;
     border-left: 2px solid #374151;
-    animation: fadeInUp 0.6s ease-out 0.4s both;
+    animation: fadeInUp 0.3s ease-out 0.15s both;
 }
 
 .skills {
@@ -204,7 +205,7 @@ h2 {
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
-    animation: fadeInUp 0.6s ease-out 0.6s both;
+    animation: fadeInUp 0.3s ease-out 0.2s both;
 
 }
 
@@ -231,7 +232,7 @@ p {
     color: #cbd5e1;
     position: relative;
     z-index: 1;
-    animation: fadeInUp 0.6s ease-out 1s both;
+    animation: fadeInUp 0.3s ease-out 0.25s both;
 }
 
 .links {
@@ -241,7 +242,7 @@ p {
     flex-wrap: wrap;
     position: relative;
     z-index: 1;
-    animation: fadeInUp 0.6s ease-out 1s both;
+    animation: fadeInUp 0.3s ease-out 0.3s both;
 }
 
 .links a {
@@ -262,15 +263,15 @@ p {
 }
 
 @media (max-width: 1024px) {
-    
+
     .navbar-center {
         gap: 1rem;
     }
-    
+
     .content-wrapper {
         padding: 120px 15px 20px;
     }
-    
+
     .main-content {
         display: flex;
         flex-direction: column;
@@ -278,14 +279,16 @@ p {
         gap: 0;
         padding: 0rem;
     }
+
     .container {
-        padding: 1.5rem; 
+        padding: 1.5rem;
         width: 90%;
         margin: 0 auto 2rem;
         z-index: 3;
         background: rgba(13, 17, 23, 0.25);
         backdrop-filter: blur(12px);
     }
+
     .tetris-container {
         position: fixed;
         top: 50vh;
@@ -296,21 +299,23 @@ p {
         z-index: 0;
         pointer-events: none;
     }
+
     .tetris-container:hover {
         transform: none;
         z-index: 0;
     }
+
     #tetris-canvas {
         border-radius: 0;
         background: linear-gradient(135deg, rgba(0, 20, 40, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%);
         border: none;
     }
-    
+
     /* Router page transitions */
     #main-page {
         transition: opacity 0.3s ease;
     }
-    
+
     #main-page.loading {
         opacity: 0.7;
     }
@@ -320,35 +325,44 @@ p {
     .navbar-center {
         display: none;
     }
+
     .navbar-container {
         justify-content: space-between;
     }
+
     .content-wrapper {
         padding: 100px 10px 20px;
     }
+
     h1 {
         font-size: 1.8rem;
     }
+
     h2 {
         font-size: 1rem;
-        padding:  0;
+        padding: 0;
         border-left: unset;
     }
+
     p {
         font-size: 1rem;
     }
+
     .skills {
         justify-content: flex-start;
         gap: 0.5rem;
     }
+
     .skill {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
+
     .links {
         justify-content: flex-start;
         gap: 1rem;
     }
+
     .links a {
         padding: 0.7rem 1.2rem;
         font-size: 0.9rem;
@@ -379,6 +393,7 @@ p {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -390,6 +405,7 @@ p {
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -400,6 +416,7 @@ p {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(100%);
     }

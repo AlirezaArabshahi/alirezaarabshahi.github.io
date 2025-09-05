@@ -1,24 +1,10 @@
 {
   "name": "alirezaarabshahi-website",
-  "version": "2.0.0",
-  "description": "Personal website with interactive animations and clean template system",
+  "version": "1.0.0",
   "main": "index.html",
   "type": "module",
   "scripts": {
     "build": "node src/build.js",
     "dev": "node src/build.js && open index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alirezaarabshahi/alirezaarabshahi.github.io.git"
-  },
-  "keywords": [
-    "personal-website",
-    "portfolio",
-    "canvas-animation",
-    "responsive-design"
-  ],
-  "author": "Alireza Arabshahi",
-  "license": "CC-BY-NC-4.0",
-  "homepage": "https://alirezaarabshahi.github.io"
+  }
 }
