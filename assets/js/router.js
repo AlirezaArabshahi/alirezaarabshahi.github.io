@@ -1,7 +1,6 @@
 /**
  * Simple client-side router to handle page transitions without a full reload.
  * This allows for smooth animations and a better user experience.
- * Author: Alireza Arabshahi
  */
 class Router {
     constructor() {

@@ -83,42 +83,27 @@ Example content update:
 }
 ```
 
-## 🌟 Features
+## 🚀 Demo
 
-### Interactive Animation
-- Tech-themed falling blocks animation
-- Mouse interaction and hover effects
-- Click to create explosion effects
-- Responsive canvas sizing
-
-### Responsive Design
-- Mobile-first approach
-- Flexible grid layout
-- Optimized for all screen sizes
-
-## 🚀 Deployment
-
-**Live Site**: [https://alirezaarabshahi.github.io](https://alirezaarabshahi.github.io)
+**Live Site**: [https://alirezaarabshahi.github.io](Demo)
 
 ## 🤝 Contributing
 
-This is a personal website, but suggestions and feedback are welcome!
+This is a personal website, but suggestions, contributions, reporting issues and feedback are welcome!
 
-## 📄 License & Usage
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)**.
-
-### 🎯 Usage Guidelines
+### 📝 License & Usage
 
 I believe in open source and sharing knowledge, but **respect for original work matters**. I've put considerable time and creativity into building this website, and I'm excited to see others learn from it!
+
+** keep the github repo link in the code
 
 **Here's what I ask:**
 1. **Acknowledge the original work** - don't present it as entirely your own creation
 2. **Include a link back** to this repository or my website
 3. **Maintain author credits** in the source code
 
-### 📝 How to Give Proper Attribution
-** keep the github repo link in the code
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0)**.
+
 
 ### ✅ You're welcome to:
 - Customize and modify the code to fit your needs
@@ -133,9 +118,7 @@ I believe in open source and sharing knowledge, but **respect for original work 
 
 ## ⭐ Show Your Support
 
-If you find this project helpful or inspiring, please consider:
+If you find this project helpful or inspiring, please consider 
 
 - **⭐ Starring this repository**.
 - **🔗 Sharing it** 
-- **💬 Providing feedback**.
-- **🐛 Reporting issues** 
