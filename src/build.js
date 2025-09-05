@@ -12,10 +12,10 @@ const config = {
         JOB_POPUP: 'src/components/AppJobPopup.html'
     },
     pages: {
-        'index': { contentPath: 'index.html', templatePath: 'src/template.html' },
-        'home': { contentPath: 'src/pages/PageHome.html', templatePath: 'src/template.html' },
+        'index': { contentPath: 'src/pages/PageHome.html', templatePath: 'src/template.html' },
         'about': { contentPath: 'src/pages/PageAbout.html', templatePath: 'src/template.html' },
         'contact': { contentPath: 'src/pages/PageContact.html', templatePath: 'src/template.html' },
+        '404': { contentPath: 'src/pages/PageNotFound.html', templatePath: 'src/template.html' }
     }
 };
 
@@ -60,7 +60,9 @@ function main() {
 
         const components = {};
         for (const [key, path] of Object.entries(config.components)) {
-            components[key] = fs.readFileSync(path, 'utf8');
+            const componentContent = fs.readFileSync(path, 'utf8');
+            // Process placeholders in components first
+            components[key] = replacePlaceholders(componentContent, rawVariables);
         }
 
         const allVariables = {

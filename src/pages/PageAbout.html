@@ -1,1 +1,40 @@
-dd
+<div class="page-container align-center">
+    <h1>About</h1>
+    <h2>Learn more about this SPA Router</h2>
+    
+    <div style="max-width: 600px; text-align: left;">
+        <h3>Router Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🚀 Modern Navigation</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Uses the History API for clean URLs without hash fragments</p>
+            </div>
+            <div class="feature-card">
+                <h4>⚡ Fast Loading</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Loads content dynamically without full page refreshes</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔒 Route Guards</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Built-in authentication and authorization support</p>
+            </div>
+            <div class="feature-card">
+                <h4>🎯 Lifecycle Hooks</h4>
+                <p style="margin: 0; font-size: 0.9rem;">beforeEnter and afterEnter hooks for custom logic</p>
+            </div>
+        </div>
+        
+        <h3>Usage Example</h3>
+        <pre><code>// Initialize router and add routes
+const router = new SPARouter();
+
+router.addRoutes({
+    '/': 'pages/home.html',
+    '/about': 'pages/about.html',
+    '/contact': 'pages/contact.html',
+    '/404': 'pages/404.html'
+});
+
+// Navigate programmatically
+router.navigateTo('/about');</code></pre>
+    </div>
+</div>
