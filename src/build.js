@@ -125,8 +125,15 @@ class SiteBuilder {
         };
 
         const html = processTemplate(readFile('src/template.html'), finalVars);
-        fs.writeFileSync(`dist/${pageName}.html`, html);
-        console.log(`✅ dist/${pageName}.html created`);
+        const fileName = pageName || 'index';
+        fs.writeFileSync(`dist/${fileName}.html`, html);
+        
+        // Also create index.html for root route
+        if (pageName === '') {
+            fs.writeFileSync(`dist/index.html`, html);
+        }
+        
+        console.log(`✅ dist/${fileName}.html created`);
     }
 
     copyAssets() {
