@@ -28,7 +28,7 @@ class ComponentBuilder {
 
     buildSkillsHtml() {
         return this.variables.SKILLS
-            .map(skill => `<span class="skill">${skill}</span>`)
+            .map(skill => `<span class="skills__item">${skill}</span>`)
             .join('\n                ');
     }
 
@@ -93,12 +93,20 @@ class SiteBuilder {
     }
 
     loadVariables() {
-        return {
+        const baseVariables = {
             ...this.variables,
             SKILLS_HTML: this.componentBuilder.buildSkillsHtml(),
-            NAVBAR: readFile('src/components/AppNavbar.html'),
             DYNAMIC_COMPONENTS: this.componentBuilder.buildDynamicComponents(),
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
+        };
+        
+        // Process navbar with variables
+        const navbarTemplate = readFile('src/components/AppNavbar.html');
+        const processedNavbar = replacePlaceholders(navbarTemplate, baseVariables);
+        
+        return {
+            ...baseVariables,
+            NAVBAR: processedNavbar
         };
     }
 

@@ -26,7 +26,7 @@ class Router {
     handleLinkClick(event) {
         const link = event.target.closest('a[data-page]');
         // Only handle links that are not navbar-links (those are handled by ElasticNavTransition)
-        if (link && !link.classList.contains('navbar-link')) {
+        if (link && !link.classList.contains('navbar__link')) {
             event.preventDefault();
             const page = link.getAttribute('data-page');
             this.navigateTo(page);

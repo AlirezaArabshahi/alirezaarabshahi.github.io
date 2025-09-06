@@ -264,7 +264,6 @@ class TetrisAnimation {
         if (this.animationFrameId) {
             cancelAnimationFrame(this.animationFrameId);
             this.animationFrameId = null;
-            console.log('Tetris animation stopped.');
         }
     }
 }

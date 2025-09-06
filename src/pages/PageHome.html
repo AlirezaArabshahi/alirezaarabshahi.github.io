@@ -1,13 +1,13 @@
 <div class="main-content">
-    <div class="container" id="main-content">
-        <h1>{{NAME}}</h1>
-        <h2>{{TITLE}}</h2>
+    <div class="content-container" id="main-content">
+        <h1 class="heading heading--primary">{{NAME}}</h1>
+        <h2 class="heading heading--secondary">{{TITLE}}</h2>
         <div class="skills">
             {{SKILLS_HTML}}
         </div>
-        <p>{{DESCRIPTION}}</p>
+        <p class="text">{{DESCRIPTION}}</p>
     </div>
-    <div class="tetris-container">
-        <canvas id="tetris-canvas"></canvas>
+    <div class="tetris">
+        <canvas id="tetris-canvas" class="tetris__canvas"></canvas>
     </div>
 </div>

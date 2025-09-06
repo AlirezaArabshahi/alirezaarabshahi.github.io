@@ -3,7 +3,7 @@
         "topBanner": {
             "enabled": true,
             "showDelay": 3000,
-            "autoHideDelay": 11000,
+            "autoHideDelay": 0,
             "content": "🚀 Available for New Opportunities! Looking for exciting projects to work on."
         },
         "bottomWidget": {

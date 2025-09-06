@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,9 +19,14 @@ body {
     justify-content: center;
     align-items: center;
     padding: 8rem 20px 20px;
-    animation: fadeIn 0.4s ease-in;
+    animation: fade-in 0.4s ease-in;
     overflow-x: hidden;
 }
+
+
+/* ==========================================================================
+   Navigation Block
+   ========================================================================== */
 
 .navbar {
     position: fixed;
@@ -29,8 +38,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-/* Simple and reliable grid navbar */
-.navbar.grid-injected {
+.navbar--grid-injected {
     background:
         linear-gradient(135deg, rgba(0, 20, 40, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%),
         linear-gradient(to right, rgba(74, 144, 226, 0.8) 1px, transparent 1px),
@@ -41,7 +49,7 @@ body {
     border-bottom: none;
 }
 
-.navbar-container {
+.navbar__container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -50,24 +58,24 @@ body {
     padding: 0 2rem;
 }
 
-.navbar-brand {
+.navbar__brand {
     font-size: 1.1rem;
     font-weight: 600;
     color: #fff;
 }
 
-.navbar-center {
+.navbar__center {
     display: flex;
     gap: 2rem;
 }
 
-.navbar-right {
+.navbar__right {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.navbar-link {
+.navbar__link {
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     font-size: 0.9rem;
@@ -77,36 +85,40 @@ body {
     transition: all 0.3s ease;
 }
 
-.navbar-link:hover {
+.navbar__link:hover {
     color: #fff;
     background: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-link.active {
+.navbar__link--active {
     color: #fff;
     background: rgba(255, 255, 255, 0.2);
 }
 
-.github-link {
+.navbar__link--github {
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
 }
 
-.navbar-options {
+.navbar__options {
     display: flex;
     gap: 0.5rem;
 }
 
-.navbar-option {
+.navbar__option {
     padding: 0.4rem;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.navbar-option.disabled {
+.navbar__option--disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+/* ==========================================================================
+   Main Content Block
+   ========================================================================== */
 
 .main-content {
     display: grid;
@@ -120,6 +132,163 @@ body {
     padding: 0 2rem;
 }
 
+/* ==========================================================================
+   Content Container Block
+   ========================================================================== */
+
+.content-container {
+    text-align: left;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.content-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.1), transparent);
+    animation: shimmer 3s infinite;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+.heading {
+    position: relative;
+    z-index: 1;
+}
+
+.heading--primary {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    animation: fade-in-up 0.3s ease-out 0.1s both;
+}
+
+.heading--secondary {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    color: #94a3b8;
+    padding-left: 1rem;
+    border-left: 2px solid #374151;
+    animation: fade-in-up 0.3s ease-out 0.15s both;
+}
+
+.text {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    color: #cbd5e1;
+    position: relative;
+    z-index: 1;
+    animation: fade-in-up 0.3s ease-out 0.25s both;
+}
+
+/* Global typography for pages */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* Minimal page animations to prevent blinking */
+.page-container {
+    opacity: 0;
+    animation: fade-in 0.3s ease-out forwards;
+}
+
+/* ==========================================================================
+   Skills Block
+   ========================================================================== */
+
+.skills {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    animation: fade-in-up 0.3s ease-out 0.2s both;
+}
+
+.skills__item {
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skills__item:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.6);
+}
+
+/* ==========================================================================
+   Page Container Block
+   ========================================================================== */
+
+.page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.page-container--align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+/* Legacy support for existing pages */
+.align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+/* Backward compatibility for old class names */
 .container {
     text-align: left;
     max-width: 600px;
@@ -128,11 +297,8 @@ body {
     position: relative;
     z-index: 2;
     background: rgba(13, 17, 23, 0.8);
-    /* background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%); */
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    /* border: 1px solid rgba(148, 163, 184, 0.2); */
-    /* animation: slideInLeft 0.8s ease-out; */
     overflow: hidden;
 }
 
@@ -146,69 +312,6 @@ body {
     background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.1), transparent);
     animation: shimmer 3s infinite;
     overflow: hidden;
-}
-
-.tetris-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 75vh;
-    height: 75vh;
-    transform: translate(-20%, -50%);
-    z-index: 1;
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.tetris-container:hover {
-    transform: translate(-30%, -50%) scale(1.05);
-    z-index: 3;
-}
-
-#tetris-canvas {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(0, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
-    border: 1px solid rgba(74, 144, 226, 0.3);
-    transition: all 0.3s ease;
-}
-
-#tetris-canvas:hover {
-    border-color: rgba(74, 144, 226, 0.6);
-    box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
-    transform: scale(1.02);
-}
-
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.25rem;
-    font-weight: 600;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.3s ease-out 0.1s both;
-}
-
-h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
-    color: #94a3b8;
-    position: relative;
-    z-index: 1;
-    padding-left: 1rem;
-    border-left: 2px solid #374151;
-    animation: fadeInUp 0.3s ease-out 0.15s both;
-}
-
-.skills {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.3s ease-out 0.2s both;
-
 }
 
 .skill {
@@ -227,19 +330,33 @@ h2 {
     border-color: rgba(59, 130, 246, 0.6);
 }
 
-p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    opacity: 0.9;
-    color: #cbd5e1;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 0.3s ease-out 0.25s both;
+/* ==========================================================================
+   Page Router Block
+   ========================================================================== */
+
+.page {
+    transition: opacity 0.3s ease;
 }
 
-@media (max-width: 1024px) {
+.page--loading {
+    opacity: 0.7;
+}
 
-    .navbar-center {
+/* Backward compatibility for JavaScript */
+#main-page {
+    transition: opacity 0.3s ease;
+}
+
+#main-page.loading {
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .navbar__center {
         gap: 1rem;
     }
 
@@ -252,9 +369,10 @@ p {
         flex-direction: column;
         align-items: center;
         gap: 0;
-        padding: 0rem;
+        padding: 0;
     }
 
+    .content-container,
     .container {
         padding: 1.5rem;
         width: 90%;
@@ -263,45 +381,14 @@ p {
         background: rgba(13, 17, 23, 0.25);
         backdrop-filter: blur(12px);
     }
-
-    .tetris-container {
-        position: fixed;
-        top: 50vh;
-        left: 50vw;
-        width: max(100vw, 100vh);
-        height: max(100vw, 100vh);
-        transform: translate(-50%, -50%);
-        z-index: 0;
-        pointer-events: none;
-    }
-
-    .tetris-container:hover {
-        transform: none;
-        z-index: 0;
-    }
-
-    #tetris-canvas {
-        border-radius: 0;
-        background: linear-gradient(135deg, rgba(0, 20, 40, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%);
-        border: none;
-    }
-
-    /* Router page transitions */
-    #main-page {
-        transition: opacity 0.3s ease;
-    }
-
-    #main-page.loading {
-        opacity: 0.7;
-    }
 }
 
 @media (max-width: 768px) {
-    .navbar-center {
+    .navbar__center {
         display: none;
     }
 
-    .navbar-container {
+    .navbar__container {
         justify-content: space-between;
     }
 
@@ -309,17 +396,17 @@ p {
         padding: 100px 10px 20px;
     }
 
-    h1 {
+    .heading--primary {
         font-size: 1.8rem;
     }
 
-    h2 {
+    .heading--secondary {
         font-size: 1rem;
         padding: 0;
-        border-left: unset;
+        border-left: none;
     }
 
-    p {
+    .text {
         font-size: 1rem;
     }
 
@@ -328,20 +415,18 @@ p {
         gap: 0.5rem;
     }
 
+    .skills__item,
     .skill {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
-
-    /* .tetris-container {
-        width: 400px;
-        height: 400px;
-    }
-     */
 }
 
+/* ==========================================================================
+   Animations
+   ========================================================================== */
 
-@keyframes fadeIn {
+@keyframes fade-in {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -353,7 +438,7 @@ p {
     }
 }
 
-@keyframes fadeInUp {
+@keyframes fade-in-up {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -365,7 +450,7 @@ p {
     }
 }
 
-@keyframes slideInLeft {
+@keyframes slide-in-left {
     from {
         opacity: 0;
         transform: translateX(-50px);
