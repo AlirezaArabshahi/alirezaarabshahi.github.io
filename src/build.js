@@ -38,30 +38,29 @@ class SiteBuilder {
         return { ...discovered, ...this.settings.pages };
     }
 
-    buildComponents(pageVars) {
+    buildComponents(allVars) {
         const skills = this.variables.PageHome?.SKILLS || [];
         const skillsHtml = skills.map(skill => `<span class="skills__item">${skill}</span>`).join('\n                ');
 
         let components = '';
+        
         if (this.settings.features.topBanner.enabled) {
             const banner = readFile('src/components/TopBanner.html');
-            components += replacePlaceholders(banner, { BANNER_CONTENT: this.settings.features.topBanner.content });
+            const bannerVars = this.variables.TopBanner || {};
+            components += replacePlaceholders(banner, { BANNER_CONTENT: bannerVars.CONTENT || '' });
         }
 
         if (this.settings.features.bottomWidget.enabled) {
             const widget = readFile('src/components/BottomWidget.html');
-            const config = this.settings.features.bottomWidget;
-            const availableForHtml = config.popup.availableFor.map(item => `<li>${item}</li>`).join('\n        ');
-            const locationSection = config.popup.showLocation ?
-                `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">📍 Based in ${pageVars.LOCATION || 'Tehran, Iran'}${config.popup.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : ''}</p>` : '';
+            const widgetVars = this.variables.BottomWidget || {};
+            const availableForHtml = widgetVars.AVAILABLE_FOR?.map(item => `<li>${item}</li>`).join('\n        ') || '';
+            const remoteNote = this.settings.features.bottomWidget.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : '';
 
             components += replacePlaceholders(widget, {
-                WIDGET_TEXT: config.buttonText,
-                WIDGET_ICON: config.buttonIcon,
-                POPUP_TITLE: config.popup.title,
-                POPUP_DESCRIPTION: config.popup.description,
+                ...widgetVars,
                 AVAILABLE_FOR_HTML: availableForHtml,
-                LOCATION_SECTION: locationSection
+                LOCATION: allVars.LOCATION || 'Undefined',
+                REMOTE_NOTE: remoteNote
             });
         }
 
@@ -73,18 +72,20 @@ class SiteBuilder {
         const pageVarKey = `Page${pageConfig.file.replace('.html', '').replace('Page', '')}`;
         const pageVars = this.variables[pageVarKey] || {};
 
-        const allVars = { ...globalVars, ...pageVars, ...this.buildComponents({ ...globalVars, ...pageVars }) };
+        const allVars = { ...globalVars, ...pageVars, ...this.variables.BottomWidget, ...this.variables.TopBanner };
+        const componentVars = this.buildComponents(allVars);
+        const finalAllVars = { ...allVars, ...componentVars };
 
-        const navbar = replacePlaceholders(readFile('src/components/AppNavbar.html'), allVars);
-        const footer = replacePlaceholders(readFile('src/components/AppFooter.html'), allVars);
-        const pageContent = replacePlaceholders(readFile(`src/pages/${pageConfig.file}`), allVars);
+        const navbar = replacePlaceholders(readFile('src/components/AppNavbar.html'), finalAllVars);
+        const footer = replacePlaceholders(readFile('src/components/AppFooter.html'), finalAllVars);
+        const pageContent = replacePlaceholders(readFile(`src/pages/${pageConfig.file}`), finalAllVars);
 
         const finalVars = {
-            ...allVars,
+            ...finalAllVars,
             NAVBAR: navbar,
             FOOTER: footer,
             PAGE_CONTENT: pageContent,
-            PAGE_TITLE: pageConfig.title,
+            PAGE_TITLE: `${pageConfig.title} | ${this.settings.siteName}`,
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
         };
 

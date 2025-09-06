@@ -1,6 +1,6 @@
 <div class="bottom-widget" id="bottomWidget" onclick="toggleBottomPopup()">
-    <span class="widget-icon">{{WIDGET_ICON}}</span>
-    {{WIDGET_TEXT}}
+    <span class="widget-icon">{{BUTTON_ICON}}</span>
+    {{BUTTON_TEXT}}
 </div>
 
 <div class="bottom-popup" id="bottomPopup">
@@ -11,5 +11,7 @@
     <ul>
         {{AVAILABLE_FOR_HTML}}
     </ul>
-    {{LOCATION_SECTION}}
+    <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+        📍 Based in {{LOCATION}}{{REMOTE_NOTE}}
+    </p>
 </div>

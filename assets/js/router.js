@@ -75,7 +75,9 @@ class Router {
                 history.pushState({ page }, null, newPath);
             }
 
-            document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} | Alireza Arabshahi`;
+            const pageConfig = window.SETTINGS?.pages?.[page];
+            const pageTitle = pageConfig?.title || page.charAt(0).toUpperCase() + page.slice(1);
+            document.title = `${pageTitle} | ${window.SETTINGS?.siteName || 'Portfolio'}`;
 
             const event = new CustomEvent('page-loaded', { detail: { page } });
             window.dispatchEvent(event);

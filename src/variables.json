@@ -28,5 +28,20 @@
     "LINKEDIN_HANDLE": "in/@alirezaarabshahi",
     "EMAIL_ADDRESS": "arabshahii.alireza@gmail.com",
     "TELEGRAM_HANDLE": "@iialireza"
+  },
+  "BottomWidget": {
+    "BUTTON_TEXT": "Open to Work",
+    "BUTTON_ICON": "💼",
+    "POPUP_TITLE": "🎯 Ready for New Challenges!",
+    "POPUP_DESCRIPTION": "I'm actively seeking opportunities in software development. Let's build something amazing together!",
+    "AVAILABLE_FOR": [
+      "Full-time positions",
+      "Contract projects", 
+      "Remote opportunities",
+      "Interesting collaborations"
+    ]
+  },
+  "TopBanner": {
+    "CONTENT": "🚀 Available for New Opportunities! Looking for exciting projects to work on."
   }
 }
