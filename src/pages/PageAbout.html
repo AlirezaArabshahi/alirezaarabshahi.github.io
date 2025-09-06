@@ -2,7 +2,7 @@
     <h1>About</h1>
     <div>Learn more about this SPA Router</div>
     <hr style="border: none; height: 1px; background-color: #374151; width: 40px; margin: 1.5rem 0 1rem 0;" />
-    
+
     <div style="max-width: 600px; text-align: left;">
         <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Router Features</h3>
         <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
@@ -23,22 +23,44 @@
                 <p style="margin: 0; font-size: 0.9rem;">beforeEnter and afterEnter hooks for custom logic</p>
             </div>
         </div>
-        
+
         <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Usage Example</h3>
-        <pre style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;">
+        <pre
+            style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;">
             <code>
-                // Initialize router and add routes
-                const router = new SPARouter();
+                // C# Sample Code - Simple Calculator Class
+                /*
+                using System;
 
-                router.addRoutes({
-                    '/': 'pages/home.html',
-                    '/about': 'pages/about.html',
-                    '/contact': 'pages/contact.html',
-                    '/404': 'pages/404.html'
-                });
+                public class Calculator
+                {
+                    public double Add(double a, double b)
+                    {
+                        return a + b;
+                    }
 
-                // Navigate programmatically
-                router.navigateTo('/about');
+                    public double Subtract(double a, double b)
+                    {
+                        return a - b;
+                    }
+
+                    public double Multiply(double a, double b)
+                    {
+                        return a * b;
+                    }
+
+                    public double Divide(double a, double b)
+                    {
+                        if (b == 0)
+                            throw new DivideByZeroException("Cannot divide by zero");
+                        return a / b;
+                    }
+                }
+
+                // Usage example:
+                Calculator calc = new Calculator();
+                double result = calc.Add(10, 5); // Returns 15
+                */
             </code>
         </pre>
     </div>

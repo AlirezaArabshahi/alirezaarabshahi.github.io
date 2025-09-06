@@ -104,9 +104,14 @@ class SiteBuilder {
         const navbarTemplate = readFile('src/components/AppNavbar.html');
         const processedNavbar = replacePlaceholders(navbarTemplate, baseVariables);
         
+        // Process footer with variables
+        const footerTemplate = readFile('src/components/AppFooter.html');
+        const processedFooter = replacePlaceholders(footerTemplate, baseVariables);
+        
         return {
             ...baseVariables,
-            NAVBAR: processedNavbar
+            NAVBAR: processedNavbar,
+            FOOTER: processedFooter
         };
     }
 
