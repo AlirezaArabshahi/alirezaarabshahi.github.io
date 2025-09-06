@@ -88,8 +88,8 @@ Example `settings.json` configuration:
 ├── src/                        # Development files
 │   ├── components/
 │   │   ├── AppNavbar.html      
-│   │   ├── TopBanner.html      
-│   │   ├── BottomWidget.html   
+│   │   ├── AppTopBanner.html      
+│   │   ├── AppBottomWidget.html   
 │   │   └── AppFooter.html      
 │   ├── pages/
 │   │   ├── PageHome.html       

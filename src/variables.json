@@ -29,7 +29,7 @@
     "EMAIL_ADDRESS": "arabshahii.alireza@gmail.com",
     "TELEGRAM_HANDLE": "@iialireza"
   },
-  "BottomWidget": {
+  "AppBottomWidget": {
     "BUTTON_TEXT": "Open to Work",
     "BUTTON_ICON": "💼",
     "POPUP_TITLE": "🎯 Ready for New Challenges!",
@@ -41,7 +41,7 @@
       "Interesting collaborations"
     ]
   },
-  "TopBanner": {
+  "AppTopBanner": {
     "CONTENT": "🚀 Available for New Opportunities! Looking for exciting projects to work on."
   }
 }

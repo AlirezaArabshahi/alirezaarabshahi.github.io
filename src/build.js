@@ -62,11 +62,19 @@ class SiteBuilder {
         // Auto-discover and build all enabled components
         const componentsDir = 'src/components';
         if (fs.existsSync(componentsDir)) {
-            const componentFiles = fs.readdirSync(componentsDir).filter(f => f.endsWith('.html') && !f.startsWith('App'));
+            const componentFiles = fs.readdirSync(componentsDir).filter(f => f.endsWith('.html') && !f.includes('Navbar') && !f.includes('Footer'));
 
             componentFiles.forEach(file => {
                 const componentName = file.replace('.html', '');
-                const featureKey = componentName.charAt(0).toLowerCase() + componentName.slice(1); // camelCase
+
+                // Auto-generate feature key from component name
+                // AppBottomWidget -> bottomWidget, AppTopBanner -> topBanner, etc.
+                let featureKey = componentName;
+                if (componentName.startsWith('App')) {
+                    featureKey = componentName.slice(3); // Remove 'App' prefix
+                }
+                featureKey = featureKey.charAt(0).toLowerCase() + featureKey.slice(1); // camelCase
+
                 const featureConfig = this.settings.features[featureKey];
 
                 if (featureConfig?.enabled) {
@@ -90,7 +98,16 @@ class SiteBuilder {
         const pageVarKey = `Page${pageConfig.file.replace('.html', '').replace('Page', '')}`;
         const pageVars = this.variables[pageVarKey] || {};
 
-        const allVars = { ...globalVars, ...pageVars, ...this.variables.BottomWidget, ...this.variables.TopBanner };
+        // Auto-include all component variables
+        const componentVarKeys = Object.keys(this.variables).filter(key =>
+            key.startsWith('App') && key !== 'AppNavbar' && key !== 'AppFooter'
+        );
+        const componentVariables = {};
+        componentVarKeys.forEach(key => {
+            Object.assign(componentVariables, this.variables[key]);
+        });
+
+        const allVars = { ...globalVars, ...pageVars, ...componentVariables };
         const componentVars = this.buildComponents(allVars);
         const finalAllVars = { ...allVars, ...componentVars };
 
