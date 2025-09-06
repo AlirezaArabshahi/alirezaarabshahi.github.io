@@ -1,0 +1,15 @@
+<div class="bottom-widget" id="bottomWidget" onclick="toggleBottomPopup()">
+    <span class="widget-icon">{{WIDGET_ICON}}</span>
+    {{WIDGET_TEXT}}
+</div>
+
+<div class="bottom-popup" id="bottomPopup">
+    <button class="close-btn" onclick="closeBottomPopup()">×</button>
+    <h3>{{POPUP_TITLE}}</h3>
+    <p>{{POPUP_DESCRIPTION}}</p>
+    <p><strong>Available for:</strong></p>
+    <ul>
+        {{AVAILABLE_FOR_HTML}}
+    </ul>
+    {{LOCATION_SECTION}}
+</div>

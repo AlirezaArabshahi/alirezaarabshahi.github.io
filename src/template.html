@@ -10,20 +10,22 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♟</text></svg>">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/job-badge.css">
-
+    <link rel="stylesheet" href="assets/css/top-banner.css">
+    <link rel="stylesheet" href="assets/css/bottom-widget.css">
+    {{SETTINGS_SCRIPT}}
 </head>
 
 <body>
     {{NAVBAR}}
-   <!-- Router content will be loaded here -->
+    {{DYNAMIC_COMPONENTS}}
+    <!-- Router content will be loaded here -->
     <div id="main-page">{{PAGE_CONTENT}}</div>
-    
-    {{JOB_POPUP}}
+
     <script src="assets/js/router.js"></script>
     <script src="assets/js/nav-transition.js"></script>
     <script src="assets/js/tetris-animation.js"></script>
-    <script src="assets/js/job-features.js"></script>
+    <script src="assets/js/top-banner.js"></script>
+    <script src="assets/js/bottom-widget.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,28 @@
+{
+    "features": {
+        "topBanner": {
+            "enabled": true,
+            "showDelay": 3000,
+            "autoHideDelay": 11000,
+            "content": "🚀 Available for New Opportunities! Looking for exciting projects to work on."
+        },
+        "bottomWidget": {
+            "enabled": true,
+            "type": "contact",
+            "buttonText": "Open to Work",
+            "buttonIcon": "💼",
+            "popup": {
+                "title": "🎯 Ready for New Challenges!",
+                "description": "I'm actively seeking opportunities in software development. Let's build something amazing together!",
+                "availableFor": [
+                    "Full-time positions",
+                    "Contract projects",
+                    "Remote opportunities",
+                    "Interesting collaborations"
+                ],
+                "showLocation": true,
+                "showRemoteNote": true
+            }
+        }
+    }
+}

@@ -1,84 +1,106 @@
 #!/usr/bin/env node
 
-
 import fs from 'fs';
 
-
-// --- Configuration ---
-const config = {
-    variablesPath: 'src/variables.json',
-    components: {
-        NAVBAR: 'src/components/AppNavbar.html',
-        JOB_POPUP: 'src/components/AppJobPopup.html'
-    },
-    pages: {
-        'index': { contentPath: 'src/pages/PageHome.html', templatePath: 'src/template.html' },
-        'about': { contentPath: 'src/pages/PageAbout.html', templatePath: 'src/template.html' },
-        'contact': { contentPath: 'src/pages/PageContact.html', templatePath: 'src/template.html' },
-        '404': { contentPath: 'src/pages/PageNotFound.html', templatePath: 'src/template.html' }
-    }
+const PAGES = {
+    'index': 'src/pages/PageHome.html',
+    'about': 'src/pages/PageAbout.html',
+    'contact': 'src/pages/PageContact.html',
+    '404': 'src/pages/PageNotFound.html'
 };
 
-// --- Helper Functions ---
-
-function replacePlaceholders(content, variables) {
-    let output = content;
-    for (const [key, value] of Object.entries(variables)) {
-        const regex = new RegExp(`{{${key}}}`, 'g');
-        output = output.replace(regex, value);
-    }
-    return output;
+function readFile(path) {
+    return fs.readFileSync(path, 'utf8');
 }
 
-function buildPage(pageName, pageConfig, allVariables) {
-    const template = fs.readFileSync(pageConfig.templatePath, 'utf8');
-    const rawPageContent = fs.readFileSync(pageConfig.contentPath, 'utf8');
+function replacePlaceholders(content, variables) {
+    return Object.entries(variables).reduce((result, [key, value]) =>
+        result.replace(new RegExp(`{{${key}}}`, 'g'), value), content
+    );
+}
 
-    // First, replace placeholders within the page's own content
-    const processedPageContent = replacePlaceholders(rawPageContent, allVariables);
+function loadVariables() {
+    const variables = JSON.parse(readFile('src/variables.json'));
+    const settings = JSON.parse(readFile('src/settings.json'));
 
-    const finalVariables = {
-        ...allVariables,
-        PAGE_CONTENT: processedPageContent,
+    // Add processed skills HTML
+    variables.SKILLS_HTML = variables.SKILLS
+        .map(skill => `<span class="skill">${skill}</span>`)
+        .join('\n                ');
+
+    // Load components
+    variables.NAVBAR = readFile('src/components/AppNavbar.html');
+
+    // Load conditional components based on settings
+    let componentsHtml = '';
+
+    if (settings.features.topBanner.enabled) {
+        const topBannerHtml = readFile('src/components/TopBanner.html');
+        componentsHtml += replacePlaceholders(topBannerHtml, {
+            ...variables,
+            BANNER_CONTENT: settings.features.topBanner.content
+        });
+    }
+
+    if (settings.features.bottomWidget.enabled) {
+        const bottomWidgetHtml = readFile('src/components/BottomWidget.html');
+        const widgetSettings = settings.features.bottomWidget;
+
+        const availableForHtml = widgetSettings.popup.availableFor
+            .map(item => `<li>${item}</li>`)
+            .join('\n        ');
+
+        const locationSection = widgetSettings.popup.showLocation ?
+            `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+                📍 Based in ${variables.LOCATION}
+                ${widgetSettings.popup.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : ''}
+            </p>` : '';
+
+        componentsHtml += replacePlaceholders(bottomWidgetHtml, {
+            ...variables,
+            WIDGET_TEXT: widgetSettings.buttonText,
+            WIDGET_ICON: widgetSettings.buttonIcon,
+            POPUP_TITLE: widgetSettings.popup.title,
+            POPUP_DESCRIPTION: widgetSettings.popup.description,
+            AVAILABLE_FOR_HTML: availableForHtml,
+            LOCATION_SECTION: locationSection
+        });
+    }
+
+    variables.DYNAMIC_COMPONENTS = componentsHtml;
+    variables.SETTINGS_SCRIPT = `<script>window.SETTINGS = ${JSON.stringify(settings)};</script>`;
+
+    return variables;
+}
+
+function buildPage(pageName, pagePath, variables) {
+    const template = readFile('src/template.html');
+    const pageContent = readFile(pagePath);
+
+    const pageVariables = {
+        ...variables,
+        PAGE_CONTENT: replacePlaceholders(pageContent, variables),
         PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1)
     };
 
-    // Then, replace placeholders in the main template
-    const finalOutput = replacePlaceholders(template, finalVariables);
+    const html = replacePlaceholders(template, pageVariables);
     const outputPath = `${pageName}.html`;
 
-    fs.writeFileSync(outputPath, finalOutput);
-    console.log(`✅ File ${outputPath} has been created!`);
+    fs.writeFileSync(outputPath, html);
+    console.log(`✅ ${outputPath} created`);
 }
-
-// --- Main Build Process ---
 
 function main() {
     try {
-        const rawVariables = JSON.parse(fs.readFileSync(config.variablesPath, 'utf8'));
-        const skillsHtml = rawVariables.SKILLS.map(skill => `<span class="skill">${skill}</span>`).join('\n                ');
+        const variables = loadVariables();
 
-        const components = {};
-        for (const [key, path] of Object.entries(config.components)) {
-            const componentContent = fs.readFileSync(path, 'utf8');
-            // Process placeholders in components first
-            components[key] = replacePlaceholders(componentContent, rawVariables);
-        }
+        Object.entries(PAGES).forEach(([name, path]) => {
+            buildPage(name, path, variables);
+        });
 
-        const allVariables = {
-            ...rawVariables,
-            ...components,
-            SKILLS_HTML: skillsHtml
-        };
-
-        for (const [pageName, pageConfig] of Object.entries(config.pages)) {
-            buildPage(pageName, pageConfig, allVariables);
-        }
-
-        console.log('\n🚀 All pages have been built successfully!');
-
+        console.log('\n🚀 Build complete!');
     } catch (error) {
-        console.error('❌ An error occurred during the build process:', error);
+        console.error('❌ Build failed:', error.message);
     }
 }
 
