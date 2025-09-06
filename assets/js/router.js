@@ -4,13 +4,14 @@
  */
 class Router {
     constructor() {
-        this.routes = {
-            '': 'index',
-            'index': 'index',
-            'about': 'about',
-            'contact': 'contact',
-            '404': '404',
-        };
+        // Build routes from settings
+        this.routes = {};
+        if (window.SETTINGS?.pages) {
+            Object.entries(window.SETTINGS.pages).forEach(([name, config]) => {
+                this.routes[config.route] = name;
+                this.routes[name] = name;
+            });
+        }
         this.mainContent = document.getElementById('main-page');
         this.defaultPage = 'index';
 

@@ -1,24 +1,10 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
+import path from 'path';
 
-const PAGES = {
-    'index': 'src/pages/PageHome.html',
-    'about': 'src/pages/PageAbout.html',
-    'contact': 'src/pages/PageContact.html',
-    '404': 'src/pages/PageNotFound.html'
-};
-
-const PAGE_VARIABLE_MAP = {
-    'index': 'PageHome',
-    'about': 'PageAbout',
-    'contact': 'PageContact',
-    '404': 'PageNotFound'
-};
-
-// Utility functions
-const readFile = (path) => fs.readFileSync(path, 'utf8');
-const readJson = (path) => JSON.parse(readFile(path));
+const readFile = (filePath) => fs.readFileSync(filePath, 'utf8');
+const readJson = (filePath) => JSON.parse(readFile(filePath));
 
 const replacePlaceholders = (content, variables) =>
     Object.entries(variables).reduce(
@@ -26,185 +12,111 @@ const replacePlaceholders = (content, variables) =>
         content
     );
 
-// Component builders
-class ComponentBuilder {
-    constructor(variables, settings) {
-        this.variables = variables;
-        this.settings = settings;
-    }
-
-    buildSkillsHtml() {
-        const skills = this.variables.PageHome?.SKILLS || [];
-        return skills
-            .map(skill => `<span class="skills__item">${skill}</span>`)
-            .join('\n                ');
-    }
-
-    buildTopBanner() {
-        if (!this.settings.features.topBanner.enabled) return '';
-
-        const template = readFile('src/components/TopBanner.html');
-        return replacePlaceholders(template, {
-            ...this.variables,
-            BANNER_CONTENT: this.settings.features.topBanner.content
-        });
-    }
-
-    buildBottomWidget() {
-        if (!this.settings.features.bottomWidget.enabled) return '';
-
-        const template = readFile('src/components/BottomWidget.html');
-        const config = this.settings.features.bottomWidget;
-
-        return replacePlaceholders(template, {
-            ...this.variables,
-            WIDGET_TEXT: config.buttonText,
-            WIDGET_ICON: config.buttonIcon,
-            POPUP_TITLE: config.popup.title,
-            POPUP_DESCRIPTION: config.popup.description,
-            AVAILABLE_FOR_HTML: this.buildAvailableForList(config.popup.availableFor),
-            LOCATION_SECTION: this.buildLocationSection(config.popup)
-        });
-    }
-
-    buildAvailableForList(items) {
-        return items.map(item => `<li>${item}</li>`).join('\n        ');
-    }
-
-    buildLocationSection(popupConfig) {
-        if (!popupConfig.showLocation) return '';
-
-        const remoteNote = popupConfig.showRemoteNote
-            ? '<br>🌎 Open to remote work worldwide'
-            : '';
-
-        return `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
-            📍 Based in ${this.variables.global?.LOCATION || 'Tehran, Iran'}
-            ${remoteNote}
-        </p>`;
-    }
-
-    buildDynamicComponents() {
-        return [
-            this.buildTopBanner(),
-            this.buildBottomWidget()
-        ].filter(Boolean).join('');
-    }
-}
-
-// Main builder class
 class SiteBuilder {
     constructor() {
-        this.variables = readJson('src/variables.json');
         this.settings = readJson('src/settings.json');
-        this.componentBuilder = new ComponentBuilder(this.variables, this.settings);
+        this.variables = readJson('src/variables.json');
+        this.pages = this.discoverPages();
     }
 
-    loadVariables(pageName) {
-        // Flatten variables: global + page-specific
+    discoverPages() {
+        const pagesDir = 'src/pages';
+        const pageFiles = fs.readdirSync(pagesDir).filter(f => f.endsWith('.html'));
+        const discovered = {};
+
+        pageFiles.forEach(file => {
+            const name = file.replace('Page', '').replace('.html', '').toLowerCase();
+            const routeName = name === 'home' ? 'index' : name;
+
+            discovered[routeName] = {
+                file: file,
+                route: routeName === 'index' ? '' : routeName,
+                title: name.charAt(0).toUpperCase() + name.slice(1)
+            };
+        });
+
+        return { ...discovered, ...this.settings.pages };
+    }
+
+    buildComponents(pageVars) {
+        const skills = this.variables.PageHome?.SKILLS || [];
+        const skillsHtml = skills.map(skill => `<span class="skills__item">${skill}</span>`).join('\n                ');
+
+        let components = '';
+        if (this.settings.features.topBanner.enabled) {
+            const banner = readFile('src/components/TopBanner.html');
+            components += replacePlaceholders(banner, { BANNER_CONTENT: this.settings.features.topBanner.content });
+        }
+
+        if (this.settings.features.bottomWidget.enabled) {
+            const widget = readFile('src/components/BottomWidget.html');
+            const config = this.settings.features.bottomWidget;
+            const availableForHtml = config.popup.availableFor.map(item => `<li>${item}</li>`).join('\n        ');
+            const locationSection = config.popup.showLocation ?
+                `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">📍 Based in ${pageVars.LOCATION || 'Tehran, Iran'}${config.popup.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : ''}</p>` : '';
+
+            components += replacePlaceholders(widget, {
+                WIDGET_TEXT: config.buttonText,
+                WIDGET_ICON: config.buttonIcon,
+                POPUP_TITLE: config.popup.title,
+                POPUP_DESCRIPTION: config.popup.description,
+                AVAILABLE_FOR_HTML: availableForHtml,
+                LOCATION_SECTION: locationSection
+            });
+        }
+
+        return { SKILLS_HTML: skillsHtml, DYNAMIC_COMPONENTS: components };
+    }
+
+    buildPage(pageName, pageConfig) {
         const globalVars = this.variables.global || {};
-        const pageVars = this.variables[pageName] || {};
-        
-        const allVariables = {
-            ...globalVars,
-            ...pageVars,
-            SKILLS_HTML: this.componentBuilder.buildSkillsHtml(),
-            DYNAMIC_COMPONENTS: this.componentBuilder.buildDynamicComponents(),
+        const pageVarKey = `Page${pageConfig.file.replace('.html', '').replace('Page', '')}`;
+        const pageVars = this.variables[pageVarKey] || {};
+
+        const allVars = { ...globalVars, ...pageVars, ...this.buildComponents({ ...globalVars, ...pageVars }) };
+
+        const navbar = replacePlaceholders(readFile('src/components/AppNavbar.html'), allVars);
+        const footer = replacePlaceholders(readFile('src/components/AppFooter.html'), allVars);
+        const pageContent = replacePlaceholders(readFile(`src/pages/${pageConfig.file}`), allVars);
+
+        const finalVars = {
+            ...allVars,
+            NAVBAR: navbar,
+            FOOTER: footer,
+            PAGE_CONTENT: pageContent,
+            PAGE_TITLE: pageConfig.title,
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
         };
 
-        // Process navbar with variables
-        const navbarTemplate = readFile('src/components/AppNavbar.html');
-        const processedNavbar = replacePlaceholders(navbarTemplate, allVariables);
-
-        // Process footer with variables
-        const footerTemplate = readFile('src/components/AppFooter.html');
-        const processedFooter = replacePlaceholders(footerTemplate, allVariables);
-
-        return {
-            ...allVariables,
-            NAVBAR: processedNavbar,
-            FOOTER: processedFooter
-        };
-    }
-
-    buildPage(pageName, pagePath) {
-        const template = readFile('src/template.html');
-        const pageContent = readFile(pagePath);
-        
-        // Get page-specific variables using the mapping
-        const variablePageName = PAGE_VARIABLE_MAP[pageName] || `Page${pageName.charAt(0).toUpperCase() + pageName.slice(1)}`;
-        const variables = this.loadVariables(variablePageName);
-
-        const pageVariables = {
-            ...variables,
-            PAGE_CONTENT: replacePlaceholders(pageContent, variables),
-            PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1)
-        };
-
-        const html = replacePlaceholders(template, pageVariables);
-        const outputPath = `dist/${pageName}.html`;
-
-        fs.writeFileSync(outputPath, html);
-        console.log(`✅ ${outputPath} created`);
-    }
-
-    build() {
-        // Create dist directory if it doesn't exist
-        if (!fs.existsSync('dist')) {
-            fs.mkdirSync('dist', { recursive: true });
-        }
-
-        // Copy assets to dist
-        this.copyAssets();
-
-        Object.entries(PAGES).forEach(([name, path]) => {
-            this.buildPage(name, path);
-        });
-
-        console.log('\n🚀 Build complete!');
-        console.log('📁 Files generated in dist/ directory');
-        console.log('🌐 Run "npm run serve" to start local server');
+        const html = replacePlaceholders(readFile('src/template.html'), finalVars);
+        fs.writeFileSync(`dist/${pageName}.html`, html);
+        console.log(`✅ dist/${pageName}.html created`);
     }
 
     copyAssets() {
-        const assetsSource = 'assets';
-        const assetsTarget = 'dist/assets';
+        if (!fs.existsSync('assets')) return;
 
-        if (fs.existsSync(assetsSource)) {
-            this.copyDirectory(assetsSource, assetsTarget);
-            console.log('📦 Assets copied to dist/assets');
-        }
+        const copy = (src, dest) => {
+            if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+            fs.readdirSync(src).forEach(item => {
+                const srcPath = path.join(src, item);
+                const destPath = path.join(dest, item);
+                fs.statSync(srcPath).isDirectory() ? copy(srcPath, destPath) : fs.copyFileSync(srcPath, destPath);
+            });
+        };
+
+        copy('assets', 'dist/assets');
+        console.log('📦 Assets copied');
     }
 
-    copyDirectory(source, target) {
-        if (!fs.existsSync(target)) {
-            fs.mkdirSync(target, { recursive: true });
-        }
+    build() {
+        if (!fs.existsSync('dist')) fs.mkdirSync('dist', { recursive: true });
 
-        const items = fs.readdirSync(source);
+        this.copyAssets();
+        Object.entries(this.pages).forEach(([name, config]) => this.buildPage(name, config));
 
-        items.forEach(item => {
-            const sourcePath = `${source}/${item}`;
-            const targetPath = `${target}/${item}`;
-
-            if (fs.statSync(sourcePath).isDirectory()) {
-                this.copyDirectory(sourcePath, targetPath);
-            } else {
-                fs.copyFileSync(sourcePath, targetPath);
-            }
-        });
+        console.log('\n🚀 Build complete!');
     }
 }
 
-// Main execution
-function main() {
-    try {
-        const builder = new SiteBuilder();
-        builder.build();
-    } catch (error) {
-        console.error('❌ Build failed:', error.message);
-    }
-}
-
-main();
+new SiteBuilder().build();
