@@ -8,16 +8,20 @@ const readJson = (filePath) => JSON.parse(readFile(filePath));
 
 const processTemplate = (content, variables) => {
     // Handle data-repeat
-    content = content.replace(/<([^>]+)\s+data-repeat="([^"]+)"[^>]*>(.*?)<\/\1>/gs, (match, tag, arrayName, template) => {
+    content = content.replace(/<(\w+)([^>]*)\s+data-repeat="([^"]+)"([^>]*)>(.*?)<\/\1>/gs, (match, tag, beforeAttr, arrayName, afterAttr, template) => {
         const array = variables[arrayName] || [];
-        return array.map(item => template.replace(/{{item}}/g, item)).join('\n        ');
+        const cleanAttrs = (beforeAttr + afterAttr).replace(/\s+data-repeat="[^"]*"/, '');
+        return array.map(item => `<${tag}${cleanAttrs}>${template.replace(/{{item}}/g, item)}</${tag}>`).join('\n            ');
     });
 
-    // Handle data-if
-    content = content.replace(/<([^>]+)\s+data-if="([^"]+)"[^>]*>(.*?)<\/\1>/gs, (match, tag, condition, template) => {
-        const shouldShow = variables[condition] || false;
-        return shouldShow ? template : '';
-    });
+    // Handle data-if recursively (process nested ones first)
+    let prevContent;
+    do {
+        prevContent = content;
+        content = content.replace(/<(\w+)([^>]*)\s+data-if="([^"]+)"([^>]*)>(.*?)<\/\1>/gs, (match, tag, beforeAttr, varName, afterAttr, template) => {
+            return variables[varName] ? template : '';
+        });
+    } while (content !== prevContent);
 
     // Handle regular placeholders
     return Object.entries(variables).reduce(
@@ -53,27 +57,32 @@ class SiteBuilder {
     }
 
     buildComponents(allVars) {
-        const skills = this.variables.PageHome?.SKILLS || [];
-        const skillsHtml = skills.map(skill => `<span class="skills__item">${skill}</span>`).join('\n                ');
-
         let components = '';
-        
-        if (this.settings.features.topBanner.enabled) {
-            const banner = readFile('src/components/TopBanner.html');
-            components += processTemplate(banner, { ...this.variables.TopBanner });
-        }
 
-        if (this.settings.features.bottomWidget.enabled) {
-            const widget = readFile('src/components/BottomWidget.html');
-            components += processTemplate(widget, {
-                ...this.variables.BottomWidget,
-                ...allVars,
-                showLocation: this.settings.features.bottomWidget.showLocation,
-                showRemoteNote: this.settings.features.bottomWidget.showRemoteNote
+        // Auto-discover and build all enabled components
+        const componentsDir = 'src/components';
+        if (fs.existsSync(componentsDir)) {
+            const componentFiles = fs.readdirSync(componentsDir).filter(f => f.endsWith('.html') && !f.startsWith('App'));
+
+            componentFiles.forEach(file => {
+                const componentName = file.replace('.html', '');
+                const featureKey = componentName.charAt(0).toLowerCase() + componentName.slice(1); // camelCase
+                const featureConfig = this.settings.features[featureKey];
+
+                if (featureConfig?.enabled) {
+                    const template = readFile(`${componentsDir}/${file}`);
+                    const componentVars = this.variables[componentName] || {};
+
+                    components += processTemplate(template, {
+                        ...allVars,
+                        ...componentVars,
+                        ...featureConfig
+                    });
+                }
             });
         }
 
-        return { SKILLS_HTML: skillsHtml, DYNAMIC_COMPONENTS: components };
+        return { DYNAMIC_COMPONENTS: components };
     }
 
     buildPage(pageName, pageConfig) {
