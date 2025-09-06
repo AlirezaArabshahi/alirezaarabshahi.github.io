@@ -9,6 +9,13 @@ const PAGES = {
     '404': 'src/pages/PageNotFound.html'
 };
 
+const PAGE_VARIABLE_MAP = {
+    'index': 'PageHome',
+    'about': 'PageAbout',
+    'contact': 'PageContact',
+    '404': 'PageNotFound'
+};
+
 // Utility functions
 const readFile = (path) => fs.readFileSync(path, 'utf8');
 const readJson = (path) => JSON.parse(readFile(path));
@@ -27,7 +34,8 @@ class ComponentBuilder {
     }
 
     buildSkillsHtml() {
-        return this.variables.SKILLS
+        const skills = this.variables.PageHome?.SKILLS || [];
+        return skills
             .map(skill => `<span class="skills__item">${skill}</span>`)
             .join('\n                ');
     }
@@ -71,7 +79,7 @@ class ComponentBuilder {
             : '';
 
         return `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
-            📍 Based in ${this.variables.LOCATION}
+            📍 Based in ${this.variables.global?.LOCATION || 'Tehran, Iran'}
             ${remoteNote}
         </p>`;
     }
@@ -92,9 +100,14 @@ class SiteBuilder {
         this.componentBuilder = new ComponentBuilder(this.variables, this.settings);
     }
 
-    loadVariables() {
-        const baseVariables = {
-            ...this.variables,
+    loadVariables(pageName) {
+        // Flatten variables: global + page-specific
+        const globalVars = this.variables.global || {};
+        const pageVars = this.variables[pageName] || {};
+        
+        const allVariables = {
+            ...globalVars,
+            ...pageVars,
             SKILLS_HTML: this.componentBuilder.buildSkillsHtml(),
             DYNAMIC_COMPONENTS: this.componentBuilder.buildDynamicComponents(),
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
@@ -102,22 +115,26 @@ class SiteBuilder {
 
         // Process navbar with variables
         const navbarTemplate = readFile('src/components/AppNavbar.html');
-        const processedNavbar = replacePlaceholders(navbarTemplate, baseVariables);
+        const processedNavbar = replacePlaceholders(navbarTemplate, allVariables);
 
         // Process footer with variables
         const footerTemplate = readFile('src/components/AppFooter.html');
-        const processedFooter = replacePlaceholders(footerTemplate, baseVariables);
+        const processedFooter = replacePlaceholders(footerTemplate, allVariables);
 
         return {
-            ...baseVariables,
+            ...allVariables,
             NAVBAR: processedNavbar,
             FOOTER: processedFooter
         };
     }
 
-    buildPage(pageName, pagePath, variables) {
+    buildPage(pageName, pagePath) {
         const template = readFile('src/template.html');
         const pageContent = readFile(pagePath);
+        
+        // Get page-specific variables using the mapping
+        const variablePageName = PAGE_VARIABLE_MAP[pageName] || `Page${pageName.charAt(0).toUpperCase() + pageName.slice(1)}`;
+        const variables = this.loadVariables(variablePageName);
 
         const pageVariables = {
             ...variables,
@@ -141,10 +158,8 @@ class SiteBuilder {
         // Copy assets to dist
         this.copyAssets();
 
-        const variables = this.loadVariables();
-
         Object.entries(PAGES).forEach(([name, path]) => {
-            this.buildPage(name, path, variables);
+            this.buildPage(name, path);
         });
 
         console.log('\n🚀 Build complete!');

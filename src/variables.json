@@ -1,16 +1,32 @@
 {
-  "LOGO": "Alireza Arabshahi",
-  "NAME": "Alireza Arabshahi",
-  "TITLE": "Software Engineer | Building Scalable Applications with .NET and JavaScript",
-  "LOCATION": "Tehran, Iran",
-  "DESCRIPTION": "I'm a software engineer (or at least that's the title I'm aiming for), passionate about building scalable, standards-driven applications using best practices in the .NET ecosystem. I blend clean, precise coding with creative problem-solving to deliver high-quality, scalable solutions.",
-  "SKILLS": ["C#", "JavaScript", "ASP.NET Core", "Vue.js", "Blazor"],
-  "GITHUB_URL": "https://github.com/alirezaarabshahi",
-  "LINKEDIN_URL": "https://www.linkedin.com/in/alirezaarabshahi",
-  "TELEGRAM_URL": "https://t.me/iialireza",
-  "EMAIL_URL": "mailto:arabshahii.alireza@gmail.com",
-  "PAGE_TITLE": "Alireza Arabshahi - Software Engineer",
-  "META_DESCRIPTION": "Alireza Arabshahi, a software engineer specializing in .NET & JavaScript, builds robust web solutions. Seeking new opportunities.",
-  "META_KEYWORDS": "software engineer, .NET, JavaScript, C#, ASP.NET Core, Vue.js, Blazor, web development, Tehran, Iran",
-  "FOOTER_TEXT": "© 2025 Alireza Arabshahi. All rights reserved."
+  "global": {
+    "LOGO": "Alireza Arabshahi",
+    "NAME": "Alireza Arabshahi",
+    "LOCATION": "Tehran, Iran",
+    "GITHUB_URL": "https://github.com/alirezaarabshahi",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/alirezaarabshahi",
+    "TELEGRAM_URL": "https://t.me/iialireza",
+    "EMAIL_URL": "mailto:arabshahii.alireza@gmail.com",
+    "PAGE_TITLE": "Alireza Arabshahi - Software Engineer",
+    "META_DESCRIPTION": "Alireza Arabshahi, a software engineer specializing in .NET & JavaScript, builds robust web solutions. Seeking new opportunities.",
+    "META_KEYWORDS": "software engineer, .NET, JavaScript, C#, ASP.NET Core, Vue.js, Blazor, web development, Tehran, Iran",
+    "FOOTER_TEXT": "© 2025 Alireza Arabshahi. All rights reserved."
+  },
+  "PageHome": {
+    "TITLE": "Software Engineer | Building Scalable Applications with .NET and JavaScript",
+    "DESCRIPTION": "I'm a software engineer (or at least that's the title I'm aiming for), passionate about building scalable, standards-driven applications using best practices in the .NET ecosystem. I blend clean, precise coding with creative problem-solving to deliver high-quality, scalable solutions.",
+    "SKILLS": [
+      "C#",
+      "JavaScript",
+      "ASP.NET Core",
+      "Vue.js",
+      "Blazor"
+    ]
+  },
+  "PageContact": {
+    "GITHUB_HANDLE": "@alirezaarabshahi",
+    "LINKEDIN_HANDLE": "in/@alirezaarabshahi",
+    "EMAIL_ADDRESS": "arabshahii.alireza@gmail.com",
+    "TELEGRAM_HANDLE": "@iialireza"
+  }
 }
