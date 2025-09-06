@@ -6,11 +6,25 @@ import path from 'path';
 const readFile = (filePath) => fs.readFileSync(filePath, 'utf8');
 const readJson = (filePath) => JSON.parse(readFile(filePath));
 
-const replacePlaceholders = (content, variables) =>
-    Object.entries(variables).reduce(
+const processTemplate = (content, variables) => {
+    // Handle data-repeat
+    content = content.replace(/<([^>]+)\s+data-repeat="([^"]+)"[^>]*>(.*?)<\/\1>/gs, (match, tag, arrayName, template) => {
+        const array = variables[arrayName] || [];
+        return array.map(item => template.replace(/{{item}}/g, item)).join('\n        ');
+    });
+
+    // Handle data-if
+    content = content.replace(/<([^>]+)\s+data-if="([^"]+)"[^>]*>(.*?)<\/\1>/gs, (match, tag, condition, template) => {
+        const shouldShow = variables[condition] || false;
+        return shouldShow ? template : '';
+    });
+
+    // Handle regular placeholders
+    return Object.entries(variables).reduce(
         (result, [key, value]) => result.replace(new RegExp(`{{${key}}}`, 'g'), value),
         content
     );
+};
 
 class SiteBuilder {
     constructor() {
@@ -46,21 +60,16 @@ class SiteBuilder {
         
         if (this.settings.features.topBanner.enabled) {
             const banner = readFile('src/components/TopBanner.html');
-            const bannerVars = this.variables.TopBanner || {};
-            components += replacePlaceholders(banner, { BANNER_CONTENT: bannerVars.CONTENT || '' });
+            components += processTemplate(banner, { ...this.variables.TopBanner });
         }
 
         if (this.settings.features.bottomWidget.enabled) {
             const widget = readFile('src/components/BottomWidget.html');
-            const widgetVars = this.variables.BottomWidget || {};
-            const availableForHtml = widgetVars.AVAILABLE_FOR?.map(item => `<li>${item}</li>`).join('\n        ') || '';
-            const remoteNote = this.settings.features.bottomWidget.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : '';
-
-            components += replacePlaceholders(widget, {
-                ...widgetVars,
-                AVAILABLE_FOR_HTML: availableForHtml,
-                LOCATION: allVars.LOCATION || 'Undefined',
-                REMOTE_NOTE: remoteNote
+            components += processTemplate(widget, {
+                ...this.variables.BottomWidget,
+                ...allVars,
+                showLocation: this.settings.features.bottomWidget.showLocation,
+                showRemoteNote: this.settings.features.bottomWidget.showRemoteNote
             });
         }
 
@@ -76,9 +85,9 @@ class SiteBuilder {
         const componentVars = this.buildComponents(allVars);
         const finalAllVars = { ...allVars, ...componentVars };
 
-        const navbar = replacePlaceholders(readFile('src/components/AppNavbar.html'), finalAllVars);
-        const footer = replacePlaceholders(readFile('src/components/AppFooter.html'), finalAllVars);
-        const pageContent = replacePlaceholders(readFile(`src/pages/${pageConfig.file}`), finalAllVars);
+        const navbar = processTemplate(readFile('src/components/AppNavbar.html'), finalAllVars);
+        const footer = processTemplate(readFile('src/components/AppFooter.html'), finalAllVars);
+        const pageContent = processTemplate(readFile(`src/pages/${pageConfig.file}`), finalAllVars);
 
         const finalVars = {
             ...finalAllVars,
@@ -89,7 +98,7 @@ class SiteBuilder {
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
         };
 
-        const html = replacePlaceholders(readFile('src/template.html'), finalVars);
+        const html = processTemplate(readFile('src/template.html'), finalVars);
         fs.writeFileSync(`dist/${pageName}.html`, html);
         console.log(`✅ dist/${pageName}.html created`);
     }

@@ -9,9 +9,9 @@
     <p>{{POPUP_DESCRIPTION}}</p>
     <p><strong>Available for:</strong></p>
     <ul>
-        {{AVAILABLE_FOR_HTML}}
+        <li data-repeat="AVAILABLE_FOR">{{item}}</li>
     </ul>
-    <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
-        📍 Based in {{LOCATION}}{{REMOTE_NOTE}}
+    <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;" data-if="showLocation">
+        📍 Based in {{LOCATION}}<span data-if="showRemoteNote"><br>🌎 Open to remote work worldwide</span>
     </p>
 </div>
