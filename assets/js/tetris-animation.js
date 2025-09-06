@@ -1,19 +1,7 @@
 /**
  * Interactive Tetris Animation
- * 
- * Author: Alireza Arabshahi
- * Website: https://alirezaarabshahi.github.io
- * Contact: arabshahii.alireza@gmail.com
- * 
- * License: CC BY 4.0 - You can use this code with proper attribution
- * 
- * ATTRIBUTION REQUIRED:
- * If you use this code, please:
- * 1. Keep this comment block
- * 2. Link back to: https://alirezaarabshahi.github.io
- * 3. Credit "Based on Alireza Arabshahi's work" in your project
- * 
- * Please don't claim this work as your own. Be decent and give credit!
+ * Author: Alireza Arabshahi - https://github.com/AlirezaArabshahi
+ * License: CC BY 4.0 - Attribution required
  */
 
 class TetrisBlock {
@@ -75,8 +63,6 @@ class TetrisAnimation {
         this.mouseX = 0;
         this.mouseY = 0;
         this.isHovered = false;
-
-        // Author: Alireza Arabshahi - arabshahii.alireza@gmail.com
 
         this.techTerms = [
             { text: '.NET', color: '#512BD4' },
