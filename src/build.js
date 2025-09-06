@@ -9,96 +9,132 @@ const PAGES = {
     '404': 'src/pages/PageNotFound.html'
 };
 
-function readFile(path) {
-    return fs.readFileSync(path, 'utf8');
-}
+// Utility functions
+const readFile = (path) => fs.readFileSync(path, 'utf8');
+const readJson = (path) => JSON.parse(readFile(path));
 
-function replacePlaceholders(content, variables) {
-    return Object.entries(variables).reduce((result, [key, value]) =>
-        result.replace(new RegExp(`{{${key}}}`, 'g'), value), content
+const replacePlaceholders = (content, variables) =>
+    Object.entries(variables).reduce(
+        (result, [key, value]) => result.replace(new RegExp(`{{${key}}}`, 'g'), value),
+        content
     );
-}
 
-function loadVariables() {
-    const variables = JSON.parse(readFile('src/variables.json'));
-    const settings = JSON.parse(readFile('src/settings.json'));
+// Component builders
+class ComponentBuilder {
+    constructor(variables, settings) {
+        this.variables = variables;
+        this.settings = settings;
+    }
 
-    // Add processed skills HTML
-    variables.SKILLS_HTML = variables.SKILLS
-        .map(skill => `<span class="skill">${skill}</span>`)
-        .join('\n                ');
+    buildSkillsHtml() {
+        return this.variables.SKILLS
+            .map(skill => `<span class="skill">${skill}</span>`)
+            .join('\n                ');
+    }
 
-    // Load components
-    variables.NAVBAR = readFile('src/components/AppNavbar.html');
+    buildTopBanner() {
+        if (!this.settings.features.topBanner.enabled) return '';
 
-    // Load conditional components based on settings
-    let componentsHtml = '';
-
-    if (settings.features.topBanner.enabled) {
-        const topBannerHtml = readFile('src/components/TopBanner.html');
-        componentsHtml += replacePlaceholders(topBannerHtml, {
-            ...variables,
-            BANNER_CONTENT: settings.features.topBanner.content
+        const template = readFile('src/components/TopBanner.html');
+        return replacePlaceholders(template, {
+            ...this.variables,
+            BANNER_CONTENT: this.settings.features.topBanner.content
         });
     }
 
-    if (settings.features.bottomWidget.enabled) {
-        const bottomWidgetHtml = readFile('src/components/BottomWidget.html');
-        const widgetSettings = settings.features.bottomWidget;
+    buildBottomWidget() {
+        if (!this.settings.features.bottomWidget.enabled) return '';
 
-        const availableForHtml = widgetSettings.popup.availableFor
-            .map(item => `<li>${item}</li>`)
-            .join('\n        ');
+        const template = readFile('src/components/BottomWidget.html');
+        const config = this.settings.features.bottomWidget;
 
-        const locationSection = widgetSettings.popup.showLocation ?
-            `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
-                📍 Based in ${variables.LOCATION}
-                ${widgetSettings.popup.showRemoteNote ? '<br>🌎 Open to remote work worldwide' : ''}
-            </p>` : '';
-
-        componentsHtml += replacePlaceholders(bottomWidgetHtml, {
-            ...variables,
-            WIDGET_TEXT: widgetSettings.buttonText,
-            WIDGET_ICON: widgetSettings.buttonIcon,
-            POPUP_TITLE: widgetSettings.popup.title,
-            POPUP_DESCRIPTION: widgetSettings.popup.description,
-            AVAILABLE_FOR_HTML: availableForHtml,
-            LOCATION_SECTION: locationSection
+        return replacePlaceholders(template, {
+            ...this.variables,
+            WIDGET_TEXT: config.buttonText,
+            WIDGET_ICON: config.buttonIcon,
+            POPUP_TITLE: config.popup.title,
+            POPUP_DESCRIPTION: config.popup.description,
+            AVAILABLE_FOR_HTML: this.buildAvailableForList(config.popup.availableFor),
+            LOCATION_SECTION: this.buildLocationSection(config.popup)
         });
     }
 
-    variables.DYNAMIC_COMPONENTS = componentsHtml;
-    variables.SETTINGS_SCRIPT = `<script>window.SETTINGS = ${JSON.stringify(settings)};</script>`;
+    buildAvailableForList(items) {
+        return items.map(item => `<li>${item}</li>`).join('\n        ');
+    }
 
-    return variables;
+    buildLocationSection(popupConfig) {
+        if (!popupConfig.showLocation) return '';
+
+        const remoteNote = popupConfig.showRemoteNote
+            ? '<br>🌎 Open to remote work worldwide'
+            : '';
+
+        return `<p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            📍 Based in ${this.variables.LOCATION}
+            ${remoteNote}
+        </p>`;
+    }
+
+    buildDynamicComponents() {
+        return [
+            this.buildTopBanner(),
+            this.buildBottomWidget()
+        ].filter(Boolean).join('');
+    }
 }
 
-function buildPage(pageName, pagePath, variables) {
-    const template = readFile('src/template.html');
-    const pageContent = readFile(pagePath);
+// Main builder class
+class SiteBuilder {
+    constructor() {
+        this.variables = readJson('src/variables.json');
+        this.settings = readJson('src/settings.json');
+        this.componentBuilder = new ComponentBuilder(this.variables, this.settings);
+    }
 
-    const pageVariables = {
-        ...variables,
-        PAGE_CONTENT: replacePlaceholders(pageContent, variables),
-        PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1)
-    };
+    loadVariables() {
+        return {
+            ...this.variables,
+            SKILLS_HTML: this.componentBuilder.buildSkillsHtml(),
+            NAVBAR: readFile('src/components/AppNavbar.html'),
+            DYNAMIC_COMPONENTS: this.componentBuilder.buildDynamicComponents(),
+            SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
+        };
+    }
 
-    const html = replacePlaceholders(template, pageVariables);
-    const outputPath = `${pageName}.html`;
+    buildPage(pageName, pagePath, variables) {
+        const template = readFile('src/template.html');
+        const pageContent = readFile(pagePath);
 
-    fs.writeFileSync(outputPath, html);
-    console.log(`✅ ${outputPath} created`);
-}
+        const pageVariables = {
+            ...variables,
+            PAGE_CONTENT: replacePlaceholders(pageContent, variables),
+            PAGE_TITLE: pageName.charAt(0).toUpperCase() + pageName.slice(1)
+        };
 
-function main() {
-    try {
-        const variables = loadVariables();
+        const html = replacePlaceholders(template, pageVariables);
+        const outputPath = `${pageName}.html`;
+
+        fs.writeFileSync(outputPath, html);
+        console.log(`✅ ${outputPath} created`);
+    }
+
+    build() {
+        const variables = this.loadVariables();
 
         Object.entries(PAGES).forEach(([name, path]) => {
-            buildPage(name, path, variables);
+            this.buildPage(name, path, variables);
         });
 
         console.log('\n🚀 Build complete!');
+    }
+}
+
+// Main execution
+function main() {
+    try {
+        const builder = new SiteBuilder();
+        builder.build();
     } catch (error) {
         console.error('❌ Build failed:', error.message);
     }
