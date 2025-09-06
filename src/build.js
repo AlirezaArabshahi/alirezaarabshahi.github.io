@@ -44,11 +44,11 @@ class SiteBuilder {
 
         pageFiles.forEach(file => {
             const name = file.replace('Page', '').replace('.html', '').toLowerCase();
-            const routeName = name === 'home' ? 'index' : name;
+            const routeName = name === 'home' ? '' : name;
 
             discovered[routeName] = {
                 file: file,
-                route: routeName === 'index' ? '' : routeName,
+                route: routeName,
                 title: name.charAt(0).toUpperCase() + name.slice(1)
             };
         });

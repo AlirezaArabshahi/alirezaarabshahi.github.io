@@ -1,7 +1,7 @@
 {
     "siteName": "Alireza Arabshahi",
     "pages": {
-        "index": {
+        "home": {
             "file": "PageHome.html",
             "route": "",
             "title": "Home"

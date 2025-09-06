@@ -13,7 +13,7 @@ class Router {
             });
         }
         this.mainContent = document.getElementById('main-page');
-        this.defaultPage = 'index';
+        this.defaultPage = 'home';
 
         window.addEventListener('popstate', (event) => {
             const page = event.state ? event.state.page : this.getPageFromPath();
@@ -63,8 +63,8 @@ class Router {
 
             this.mainContent.innerHTML = newContent;
 
-            // Manually trigger re-initialization of animations if the page is index
-            if (page === 'index') {
+            // Manually trigger re-initialization of animations if the page is home
+            if (page === 'home') {
                 if (window.initializeTetris) {
                     window.initializeTetris();
                 }
