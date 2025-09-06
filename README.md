@@ -1,4 +1,4 @@
-# Alireza Arabshahi - Personal Website
+# Alireza Arabshahi - Portfolio Website
 
 A modern, interactive personal website built with a clean template system and dynamic content management.
 
@@ -20,6 +20,7 @@ Absolutely! I'm happy to share my work with the developer community. The answer 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Animation**: Canvas API
 - **Build System**: Node.js
+- **Dev Server**: serve (npm package)
 
 ## 📁 Project Structure
 
@@ -33,18 +34,26 @@ Absolutely! I'm happy to share my work with the developer community. The answer 
 │       └── tetris-animation.js # Interactive background animation
 ├── src/                        # Development files
 │   ├── components/
-│   │   ├── navbar.html         # Navbar component
-│   │   ├── job-popup.html      # Job popup component
-│   │   ├── about.html          # Content for About page
-│   │   └── contact.html        # Content for Contact page
-│   ├── 404.html                # 404 page
-│   ├── home.html               # Content for Home page
+│   │   ├── AppNavbar.html      # Navbar component
+│   │   ├── TopBanner.html      # Top banner component
+│   │   ├── BottomWidget.html   # Bottom widget component
+│   │   └── AppFooter.html      # Footer component
+│   ├── pages/
+│   │   ├── PageHome.html       # Home page content
+│   │   ├── PageAbout.html      # About page content
+│   │   ├── PageContact.html    # Contact page content
+│   │   └── PageNotFound.html   # 404 page content
 │   ├── template.html           # Main HTML site template
 │   ├── variables.json          # Global text and link variables
+│   ├── settings.json           # Feature toggles and configuration
 │   └── build.js                # Node.js build script
-├── index.html                  # Generated home page (production)
-├── about.html                  # Generated about page (production)
-├── contact.html                # Generated contact page (production)
+├── dist/                       # Generated files (production)
+│   ├── assets/                 # Copied assets
+│   ├── index.html              # Generated home page
+│   ├── about.html              # Generated about page
+│   ├── contact.html            # Generated contact page
+│   └── 404.html                # Generated 404 page
+├── package.json
 └── README.md
 ```
 
@@ -63,39 +72,74 @@ Absolutely! I'm happy to share my work with the developer community. The answer 
    npm install
    ```
 
-3. **Edit content**
-   - Edit `src/variables.json` to change global content (name, skills, links).
-   - Edit page content in `src/home.html`, `src/components/about.html`, and `src/components/contact.html`.
-   - Edit `src/template.html` to change the main site structure.
-
-4. **Build the website**
+3. **Start development server**
    ```bash
-   # Using npm script (recommended)
+   # Build and start local server (recommended)
+   npm run dev
+   ```
+   This will:
+   - Build the website to `dist/` directory
+   - Start a local server at `http://localhost:3000`
+   - Automatically open your browser
+
+4. **Alternative commands**
+   ```bash
+   # Just build (without server)
    npm run build
+   
+   # Just serve (after building)
+   npm run serve
+   
+   # Clean build directory
+   npm run clean
    ```
-   This will generate `index.html`, `about.html`, and `contact.html` in the root directory.
 
-5. **Preview the website**
-   ```bash
-   # Open index.html in your browser
-   ```
+5. **Edit content**
+   - Edit `src/variables.json` to change global content (name, skills, links)
+   - Edit `src/settings.json` to toggle features and configure components
+   - Edit page content in `src/pages/` directory
+   - Edit `src/template.html` to change the main site structure
+   - After changes, run `npm run dev` again to see updates
 
 ### Content Management
 
 Content is managed through a multi-page template system that separates structure, content, and data:
 
-- **`src/variables.json`**: Contains all global text content, links, and metadata.
-- **`src/template.html`**: The main HTML structure with `{{VARIABLE}}` placeholders for content that is consistent across all pages.
-- **`src/components/`**: Holds reusable HTML snippets (`navbar.html`) and some page content (`about.html`, `contact.html`).
-- **Page-specific content**: `src/home.html` contains the content for the homepage.
-- **`src/build.js`**: This script reads the template, variables, components, and page content, combines them, and generates the final static HTML files (`index.html`, `about.html`, etc.).
+- **`src/variables.json`**: Contains all global text content, links, and metadata
+- **`src/settings.json`**: Feature toggles and configuration for components (top banner, bottom widget, etc.)
+- **`src/template.html`**: The main HTML structure with `{{VARIABLE}}` placeholders
+- **`src/components/`**: Reusable HTML components (navbar, footer, banner, widget)
+- **`src/pages/`**: Individual page content (home, about, contact, 404)
+- **`src/build.js`**: Build script that combines everything and generates static files to `dist/`
 
 Example content update in `variables.json`:
 ```json
 {
   "NAME": "Your Name",
   "SKILLS": ["C#", ".NET", "ASP.NET Core"],
-  "GITHUB_URL": "https://github.com/yourusername"
+  "GITHUB_URL": "https://github.com/yourusername",
+  "LOCATION": "Your City, Country"
+}
+```
+
+Example feature configuration in `settings.json`:
+```json
+{
+  "features": {
+    "topBanner": {
+      "enabled": true,
+      "content": "🚀 Available for new opportunities!"
+    },
+    "bottomWidget": {
+      "enabled": true,
+      "buttonText": "Let's Work Together",
+      "popup": {
+        "title": "Available for Work",
+        "showLocation": true,
+        "showRemoteNote": true
+      }
+    }
+  }
 }
 ```
 
