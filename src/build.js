@@ -99,15 +99,15 @@ class SiteBuilder {
             DYNAMIC_COMPONENTS: this.componentBuilder.buildDynamicComponents(),
             SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(this.settings)};</script>`
         };
-        
+
         // Process navbar with variables
         const navbarTemplate = readFile('src/components/AppNavbar.html');
         const processedNavbar = replacePlaceholders(navbarTemplate, baseVariables);
-        
+
         // Process footer with variables
         const footerTemplate = readFile('src/components/AppFooter.html');
         const processedFooter = replacePlaceholders(footerTemplate, baseVariables);
-        
+
         return {
             ...baseVariables,
             NAVBAR: processedNavbar,
@@ -126,13 +126,21 @@ class SiteBuilder {
         };
 
         const html = replacePlaceholders(template, pageVariables);
-        const outputPath = `${pageName}.html`;
+        const outputPath = `dist/${pageName}.html`;
 
         fs.writeFileSync(outputPath, html);
         console.log(`✅ ${outputPath} created`);
     }
 
     build() {
+        // Create dist directory if it doesn't exist
+        if (!fs.existsSync('dist')) {
+            fs.mkdirSync('dist', { recursive: true });
+        }
+
+        // Copy assets to dist
+        this.copyAssets();
+
         const variables = this.loadVariables();
 
         Object.entries(PAGES).forEach(([name, path]) => {
@@ -140,6 +148,37 @@ class SiteBuilder {
         });
 
         console.log('\n🚀 Build complete!');
+        console.log('📁 Files generated in dist/ directory');
+        console.log('🌐 Run "npm run serve" to start local server');
+    }
+
+    copyAssets() {
+        const assetsSource = 'assets';
+        const assetsTarget = 'dist/assets';
+
+        if (fs.existsSync(assetsSource)) {
+            this.copyDirectory(assetsSource, assetsTarget);
+            console.log('📦 Assets copied to dist/assets');
+        }
+    }
+
+    copyDirectory(source, target) {
+        if (!fs.existsSync(target)) {
+            fs.mkdirSync(target, { recursive: true });
+        }
+
+        const items = fs.readdirSync(source);
+
+        items.forEach(item => {
+            const sourcePath = `${source}/${item}`;
+            const targetPath = `${target}/${item}`;
+
+            if (fs.statSync(sourcePath).isDirectory()) {
+                this.copyDirectory(sourcePath, targetPath);
+            } else {
+                fs.copyFileSync(sourcePath, targetPath);
+            }
+        });
     }
 }
 

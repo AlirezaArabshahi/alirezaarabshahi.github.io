@@ -1,7 +1,5 @@
 # build files (local only)
-index.html
-about.html
-contact.html
+dist/
 # System Files
 .DS_Store
 Thumbs.db
