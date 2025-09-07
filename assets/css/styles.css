@@ -233,6 +233,61 @@ p {
 }
 
 /* ==========================================================================
+   Profile Image Block
+   ========================================================================== */
+
+.profile-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    animation: fade-in-up 0.3s ease-out 0.1s both;
+}
+
+.profile-image {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-image:hover {
+    transform: scale(1.05);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+.profile-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.profile-image__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.7), rgba(59, 130, 246, 0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: multiply;
+}
+
+.profile-image:hover .profile-image__overlay {
+    opacity: 1;
+}
+
+.profile-image:hover .profile-image__img {
+    filter: brightness(1.1) contrast(1.1);
+}
+
+/* ==========================================================================
    Skills Block
    ========================================================================== */
 
@@ -511,6 +566,11 @@ p {
     .skill {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
     }
 }
 
