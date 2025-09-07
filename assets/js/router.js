@@ -4,14 +4,18 @@
  */
 class Router {
     constructor() {
-        // Build routes from settings
+        // Build routes from settings - map route to filename
         this.routes = {};
         if (window.SETTINGS?.pages) {
-            Object.entries(window.SETTINGS.pages).forEach(([name, config]) => {
-                this.routes[config.route] = name;
-                this.routes[name] = name;
+            Object.entries(window.SETTINGS.pages).forEach(([route, config]) => {
+                const fileName = route === '' ? 'index' : route;
+                this.routes[route] = fileName;
             });
         }
+        
+        // Add home alias for empty route
+        this.routes['home'] = 'index';
+        
         this.mainContent = document.getElementById('main-page');
         this.defaultPage = 'home';
 
@@ -36,8 +40,8 @@ class Router {
 
     getPageFromPath() {
         const path = window.location.pathname.replace(/^\//, '').replace(/\.html$/, '');
-        const page = path.split('/').pop() || this.defaultPage;
-        return this.routes[page] ? page : '404';
+        const route = path || ''; // Empty string for home
+        return this.routes[route] ? route : '404';
     }
 
     async loadPage(page, addToHistory = true) {

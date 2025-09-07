@@ -15,12 +15,15 @@ This project is designed to be **framework-agnostic**. You don't need complex co
 If you find this project helpful, please consider **starring ⭐** and **sharing it**.
 
 ### 🚀 Features
-- **Interactive Tetris Animation**: Canvas-based, tech-based aesthetic design.
-- **Client-Side Routing**: Smooth page transitions without full reloads.
-- **Responsive Design**: Works on desktop, tablet, and mobile.
-- **Template System**: Separates content from code for easier maintenance.
-- **Clean Architecture**: Modular structure for CSS, JavaScript, and HTML.
-- **Framework Agnostic**: Editable with only basic web knowledge.
+- **Smart Auto-Discovery**: Drop `PageNewPage.html` → automatically gets `/newpage` route
+- **Dynamic Navbar**: Auto-generates navigation from discovered pages
+- **Flexible Ordering**: Control navbar order with simple array or individual settings
+- **Interactive Tetris Animation**: Canvas-based, tech-based aesthetic design
+- **Client-Side Routing**: Smooth page transitions without full reloads
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Template System**: Separates content from code for easier maintenance
+- **Clean Architecture**: Modular structure for CSS, JavaScript, and HTML
+- **Framework Agnostic**: Editable with only basic web knowledge
 
 ### 🛠️ Tech Stack
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
@@ -50,6 +53,47 @@ This is where the magic happens:
 -   **`src/settings.json`**: Enable/disable features like the top banner.
 -   **`src/pages/`**: Edit the content of internal pages. (for more professional use)
 
+### 🎯 Smart Page Routing System
+**Convention over Configuration** - The build system automatically discovers and creates routes:
+
+#### 🔍 **Auto-Discovery**
+- Drop `PageNewPage.html` in `src/pages/` → automatically gets `/newpage` route
+- Zero configuration needed for new pages
+- Automatic navbar generation from discovered pages
+- Smart file naming: `PageHome.html` → `/`, `PageAbout.html` → `/about`
+
+#### 📋 **Navbar Control**
+Three ways to control your navigation:
+
+1. **Automatic** (zero config): All pages appear in discovery order
+2. **Array order** (recommended): Use `navbarOrder` for exact control
+3. **Individual settings**: Fine-tune each page separately
+
+**Control navbar order and visibility:**
+```json
+{
+  "navbarOrder": ["", "about", "portfolio", "contact"],
+  "pages": {
+    "about": {
+      "title": "About Me"
+    },
+    "portfolio": {
+      "title": "My Work",
+      "showInNavbar": true
+    },
+    "blog": {
+      "showInNavbar": false
+    }
+  }
+}
+```
+
+**Key features:**
+- **`navbarOrder`**: Simple array to control exact navbar order
+- **`showInNavbar`**: Hide/show pages in navigation (404 is always hidden)
+- **Dynamic navbar**: Automatically builds from discovered pages
+- **Smart defaults**: Home always first, 404 always hidden
+
 Example `variables.json` update:
 ```json
 {
@@ -61,11 +105,14 @@ Example `variables.json` update:
 Example `settings.json` configuration:
 ```json
 {
+  "siteName": "Your Name",
+  "navbarOrder": ["", "about", "portfolio", "contact"],
+  "pages": {
+    "about": { "title": "About Me" },
+    "blog": { "showInNavbar": false }
+  },
   "features": {
-    "topBanner": {
-      "enabled": true,
-      "content": "🚀 Available for new opportunities!"
-    }
+    "topBanner": { "enabled": true }
   }
 }
 ```
@@ -78,28 +125,30 @@ Example `settings.json` configuration:
 │   │   └── bottom-widget.css    
 │   │   └── top-banner.css      
 │   │   └── app-footer.css      
-│   │   └── tetris-animation.css 
+│   │   └── tetris-animation.css
 │   └── js/
 │       ├── router.js           # Client-side router
 │       ├── nav-transition.js   # Page transition animations
 │       └── tetris-animation.js # Interactive background animation
+|       └── hamburger-menu.js   # Hamburger menu functionality
 │       └── top-banner.js       
 │       └── bottom-widget.js   
 ├── src/                        # Development files
 │   ├── components/
-│   │   ├── AppNavbar.html      
+│   │   ├── AppNavbar.html      # Auto-generates navbar from pages
 │   │   ├── AppTopBanner.html      
 │   │   ├── AppBottomWidget.html   
 │   │   └── AppFooter.html      
 │   ├── pages/
-│   │   ├── PageHome.html       
-│   │   ├── PageAbout.html      
-│   │   ├── PageContact.html    
-│   │   └── PageNotFound.html   # 404 page content
+│   │   ├── PageHome.html       # Auto-discovered → / route
+│   │   ├── PageAbout.html      # Auto-discovered → /about route
+│   │   ├── PageContact.html    # Auto-discovered → /contact route
+│   │   └── PageNotFound.html   # Auto-discovered → /404 route
 │   ├── template.html           # Main HTML site template
 │   ├── variables.json          # Global text and link variables
-│   ├── settings.json           # Feature toggles and configuration
-│   └── build.js                # Node.js build script
+│   ├── settings.json           # Smart routing & feature config
+│   ├── settings.example.json   # Configuration examples
+│   └── build.js                # Smart build system
 ├── dist/                       # Generated files (production)
 │   ├── assets/                 # Copied assets
 │   ├── index.html              

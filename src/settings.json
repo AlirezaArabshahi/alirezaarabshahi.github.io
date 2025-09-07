@@ -1,25 +1,14 @@
 {
     "siteName": "Alireza Arabshahi",
+    "navbarOrder": [
+        "",
+        "about",
+        "contact"
+    ],
     "pages": {
-        "home": {
-            "file": "PageHome.html",
-            "route": "",
-            "title": "Home"
-        },
-        "about": {
-            "file": "PageAbout.html",
-            "route": "about",
-            "title": "About"
-        },
-        "contact": {
-            "file": "PageContact.html",
-            "route": "contact",
-            "title": "Contact"
-        },
-        "404": {
-            "file": "PageNotFound.html",
-            "route": "404",
-            "title": "Not Found"
+        "cvvv": {
+            "title": "CV :)",
+            "showInNavbar": false
         }
     },
     "features": {
