@@ -84,18 +84,16 @@ Opens your website at `http://localhost:3000` ✨
 ### Step 4: Upload to Your Server
 Now you can upload the `/dist` folder to your server and your portfolio is live.
 
-## 📝 More Customization Made Simple (for more professional use)
-
-### 🎨 **Change Your Content**
+## 📝 Customization (for more professional use)
 
 ### 🏠 **Add New Pages**
-Want a about page? Just create `PageAbout.html` in `src/pages/` folder.
+Want a new page? Just create `PageNew.html` in `src/pages/` folder.
 The website automatically:
-- Creates `/about` route
+- Creates `/new` route
 - Adds it to navigation menu
 - Makes it clickable
 you only need to: 
-- add html content to `PageAbout.html` file.
+- add html content to `PageNew.html` file.
 
 ### 🎛️ **Control Your Menu**
 Edit `src/settings.json` to:
@@ -146,7 +144,7 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial 
 
 #### ✅ You're welcome to:
 - **Customize and use**: Modify the code to build your own personal portfolio.
-- **Keep the attribution**: Acknowledge the original work by keeping the source button in the navbar or footer or mention repository url in the footer.
+- **Keep the attribution**: Acknowledge the original work by keeping the source button in the navbar or mention repository url in the footer.
 - **Maintain author credits**: Keep the author credits in the source code.
 
 #### ❌ Please don't:
