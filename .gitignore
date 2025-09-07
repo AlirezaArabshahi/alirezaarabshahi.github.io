@@ -1,5 +1,5 @@
 # build files (local only)
-dist/
+
 # System Files
 .DS_Store
 Thumbs.db
