@@ -24,10 +24,10 @@
     ]
   },
   "PageContact": {
-    "GITHUB_HANDLE": "@alirezaarabshahi",
-    "LINKEDIN_HANDLE": "in/@alirezaarabshahi",
-    "EMAIL_ADDRESS": "arabshahii.alireza@gmail.com",
-    "TELEGRAM_HANDLE": "@iialireza"
+    "GITHUB": "@alirezaarabshahi",
+    "LINKEDIN": "in/alirezaarabshahi",
+    "EMAIL": "arabshahii.alireza@gmail.com",
+    "TELEGRAM": "@iialireza"
   },
   "AppBottomWidget": {
     "BUTTON_TEXT": "Open to Work",
