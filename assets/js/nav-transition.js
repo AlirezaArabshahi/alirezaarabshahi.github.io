@@ -1,7 +1,4 @@
-/**
- * Elastic Tetris Grid Stretch Animation
- * Smooth and fast like stretching dough or taffy
- */
+
 
 class ElasticNavTransition {
     constructor() {

@@ -1,10 +1,17 @@
 {
     "navbarOrder": [
-        "",
-        "about",
+        "home",
+        "blog",
+        "cv",
         "contact"
     ],
     "pages": {
+        "blog": {
+            "title": "blog [coming soon]"
+        },
+        "cv": {
+            "title": "cv [coming soon]"
+        }
     },
     "features": {
         "topBanner": {
