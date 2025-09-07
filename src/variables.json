@@ -1,39 +1,38 @@
 {
   "global": {
     "LOGO": "EasyPortfolio",
-    "NAME": "Alireza Arabshahi",
+    "NAME": "Your Name Here",
     "LOCATION": "City, Country",
-    "GITHUB_URL": "https://github.com/alirezaarabshahi",
-    "LINKEDIN_URL": "https://www.linkedin.com/in/alirezaarabshahi",
-    "TELEGRAM_URL": "https://t.me/iialireza",
-    "EMAIL_URL": "mailto:arabshahii.alireza@gmail.com",
-    "PAGE_TITLE": "Alireza Arabshahi - Software Engineer",
-    "META_DESCRIPTION": "Alireza Arabshahi, a software engineer specializing in .NET & JavaScript, builds robust web solutions. Seeking new opportunities.",
-    "META_KEYWORDS": "software engineer, .NET, JavaScript, C#, ASP.NET Core, Vue.js, Blazor, web development, Tehran, Iran",
-    "FOOTER_TEXT": "© 2025 Alireza Arabshahi. All rights reserved."
+    "GITHUB_URL": "https://github.com/yourusername",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/yourusername",
+    "TELEGRAM_URL": "https://t.me/yourusername",
+    "EMAIL_URL": "mailto:your.email@example.com",
+    "PAGE_TITLE": "Your Name - Your Title",
+    "META_DESCRIPTION": "Your meta description here.",
+    "META_KEYWORDS": "keywords, for, your, portfolio",
+    "FOOTER_TEXT": "© 2025 Your Name. All rights reserved.",
+    "PROFILE_IMAGE": "/assets/me.png"
   },
   "PageHome": {
-    "TITLE": "Software Engineer | Building Scalable Applications with .NET and JavaScript",
-    "DESCRIPTION": "I'm a software engineer (or at least that's the title I'm aiming for), passionate about building scalable, standards-driven applications using best practices in the .NET ecosystem. I blend clean, precise coding with creative problem-solving to deliver high-quality, scalable solutions.",
+    "TITLE": "Your Title | Building Awesome Things",
+    "DESCRIPTION": "I'm a passionate professional dedicated to creating innovative solutions and impactful projects. I blend creativity with technical expertise to deliver high-quality results.",
     "SKILLS": [
-      "C#",
-      "JavaScript",
-      "ASP.NET Core",
-      "Vue.js",
-      "Blazor"
+      "Skill 1",
+      "Skill 2",
+      "Skill 3"
     ]
   },
   "PageContact": {
-    "GITHUB": "@alirezaarabshahi",
-    "LINKEDIN": "in/alirezaarabshahi",
-    "EMAIL": "arabshahii.alireza@gmail.com",
-    "TELEGRAM": "@iialireza"
+    "GITHUB": "@yourusername",
+    "LINKEDIN": "in/yourusername",
+    "EMAIL": "your.email@example.com",
+    "TELEGRAM": "@yourusername"
   },
   "AppBottomWidget": {
     "BUTTON_TEXT": "Open to Work",
     "BUTTON_ICON": "💼",
     "POPUP_TITLE": "🎯 Ready for New Challenges!",
-    "POPUP_DESCRIPTION": "I'm actively seeking opportunities in software development. Let's build something amazing together!",
+    "POPUP_DESCRIPTION": "I'm actively seeking opportunities in my field. Let's create something amazing together!",
     "AVAILABLE_FOR": [
       "Full-time positions",
       "Contract projects", 
