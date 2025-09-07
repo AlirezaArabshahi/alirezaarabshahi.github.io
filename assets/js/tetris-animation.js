@@ -1,5 +1,4 @@
 /**
- * Interactive Tetris Animation
  * Author: Alireza Arabshahi - https://github.com/AlirezaArabshahi
  * License: CC BY 4.0 - Attribution required
  */
