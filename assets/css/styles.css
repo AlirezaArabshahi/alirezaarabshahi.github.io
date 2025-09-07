@@ -566,6 +566,93 @@ p {
         width: 100px;
         height: 100px;
     }
+
+    /* Contact page mobile fixes */
+    .page-container {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .page-container>div[style*="max-width"] {
+        max-width: 100% !important;
+        width: 100%;
+    }
+
+    .page-container a[style*="display: flex"] {
+        padding: 0.8rem !important;
+        margin: 0 !important;
+        border-radius: 8px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .page-container a[style*="display: flex"] svg {
+        width: 1.2rem !important;
+        height: 1.2rem !important;
+        margin-right: 0.8rem !important;
+        flex-shrink: 0;
+    }
+
+    .page-container a[style*="display: flex"]>div {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .page-container a[style*="display: flex"]>div>div:first-child {
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+    }
+
+    .page-container a[style*="display: flex"]>div>div:last-child {
+        font-size: 0.75rem !important;
+        opacity: 0.7 !important;
+        word-break: break-all;
+    }
+
+    .page-container div[style*="display: grid"] {
+        gap: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .page-container div[style*="text-align: center"] {
+        padding: 1rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .page-container div[style*="text-align: center"] h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .page-container div[style*="text-align: center"] p {
+        font-size: 0.85rem !important;
+    }
+
+    /* About page mobile fixes */
+    .page-container pre {
+        font-size: 0.7rem !important;
+        padding: 0.8rem !important;
+        overflow-x: auto !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+    }
+
+    .page-container div[style*="max-width: 600px"] {
+        max-width: 100% !important;
+        text-align: left !important;
+    }
+
+    .page-container div[style*="display: grid"] div[style*="padding: 1rem"] {
+        padding: 0.8rem !important;
+    }
+
+    .page-container div[style*="display: grid"] h4 {
+        font-size: 1rem !important;
+        margin-bottom: 0.4rem !important;
+    }
+
+    .page-container div[style*="display: grid"] p {
+        font-size: 0.8rem !important;
+    }
 }
 
 /* ==========================================================================
