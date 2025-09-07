@@ -202,8 +202,8 @@ class SiteBuilder {
             NAVBAR: navbar,
             FOOTER: footer,
             PAGE_CONTENT: pageContent,
-            PAGE_TITLE: `${pageConfig.title} | ${this.settings.siteName}`,
-            SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(clientSettings)};</script>`
+            PAGE_TITLE: `${pageConfig.title} | ${this.variables.global.NAME}`,
+            SETTINGS_SCRIPT: `<script>window.SETTINGS = ${JSON.stringify(clientSettings)}; window.VARIABLES = ${JSON.stringify(this.variables)};</script>`
         };
 
         const html = processTemplate(readFile('src/template.html'), finalVars);

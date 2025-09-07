@@ -1,14 +1,10 @@
 {
-    "siteName": "Alireza Arabshahi",
     "navbarOrder": [
         "",
         "about",
         "contact"
     ],
     "pages": {
-        "cvvv": {
-            "title": "CV :)"
-        }
     },
     "features": {
         "topBanner": {

@@ -12,9 +12,10 @@ class ElasticNavTransition {
         // Initial setup for the transition listener
         this.setupTransitionListener();
 
-        // Fallback for direct navigation to sub-pages
+        // Fallback for direct navigation to sub-pages (if user directly navigates to a sub-page)
         const currentPage = window.router.getPageFromPath();
-        if (currentPage !== 'home') {
+        if (currentPage !== 'home' && currentPage !== '') {
+            
             const navbar = document.querySelector('.navbar');
             if (navbar) navbar.classList.add('navbar--grid-injected');
         }

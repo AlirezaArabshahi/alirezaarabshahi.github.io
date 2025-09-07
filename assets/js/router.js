@@ -88,7 +88,7 @@ class Router {
 
             const pageConfig = window.SETTINGS?.pages?.[page];
             const pageTitle = pageConfig?.title || page.charAt(0).toUpperCase() + page.slice(1);
-            document.title = `${pageTitle} | ${window.SETTINGS?.siteName || 'Portfolio'}`;
+            document.title = `${pageTitle} | ${window.VARIABLES?.global?.NAME || 'Portfolio'}`;
 
             const event = new CustomEvent('page-loaded', { detail: { page } });
             window.dispatchEvent(event);
