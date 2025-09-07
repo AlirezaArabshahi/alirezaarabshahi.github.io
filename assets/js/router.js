@@ -12,10 +12,10 @@ class Router {
                 this.routes[route] = fileName;
             });
         }
-        
+
         // Add home alias for empty route
         this.routes['home'] = 'index';
-        
+
         this.mainContent = document.getElementById('main-page');
         this.defaultPage = 'home';
 
@@ -41,7 +41,14 @@ class Router {
     getPageFromPath() {
         const path = window.location.pathname.replace(/^\//, '').replace(/\.html$/, '');
         const route = path || ''; // Empty string for home
-        return this.routes[route] ? route : '404';
+
+        // Check if route exists in our routes
+        if (this.routes[route]) {
+            return route;
+        }
+
+        // If route doesn't exist, return 404
+        return '404';
     }
 
     async loadPage(page, addToHistory = true) {
@@ -88,16 +95,36 @@ class Router {
 
         } catch (error) {
             console.error('Error loading page:', error);
-            // On error, load the 404 page content
-            const response = await fetch('404.html');
-            const html = await response.text();
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            this.mainContent.innerHTML = tempDiv.querySelector('#main-page').innerHTML;
+            // On error, redirect to 404 page properly
+            if (page !== '404') {
+                // Redirect to 404 page with proper URL and state
+                this.loadPage('404', addToHistory);
+                return;
+            }
+
+            // If 404.html itself fails to load, show fallback content
+            this.mainContent.innerHTML = `
+                <div class="error-page">
+                    <h1>404 - Page Not Found</h1>
+                    <p>The page you're looking for doesn't exist.</p>
+                    <a href="/" data-page="home">Go Home</a>
+                </div>
+            `;
+
+            if (addToHistory) {
+                history.pushState({ page: '404' }, null, '/404');
+            }
         }
     }
 
     navigateTo(page) {
+        // Check if page exists in routes, if not redirect to 404
+        if (!this.routes[page] && page !== '404') {
+            console.warn(`Page "${page}" not found, redirecting to 404`);
+            this.loadPage('404', true);
+            return;
+        }
+
         const currentPage = this.getPageFromPath();
         if (page !== currentPage) {
             this.loadPage(page, true);

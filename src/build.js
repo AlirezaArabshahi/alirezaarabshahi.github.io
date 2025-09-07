@@ -135,7 +135,7 @@ class SiteBuilder {
 
     buildNavbarLinks() {
         const navbarPages = Object.entries(this.pages)
-            .filter(([_, config]) => config.showInNavbar !== false)
+            .filter(([_, config]) => config.showInNavbar !== false && config.file) // Only show pages with files
             .sort(([, a], [, b]) => (a.order || 50) - (b.order || 50)) // Sort by order
             .map(([route, config]) => ({
                 href: route === '' ? '/' : `/${route}`,
@@ -150,7 +150,7 @@ class SiteBuilder {
 
     buildMobileNavbarLinks() {
         const navbarPages = Object.entries(this.pages)
-            .filter(([_, config]) => config.showInNavbar !== false)
+            .filter(([_, config]) => config.showInNavbar !== false && config.file) // Only show pages with files
             .sort(([, a], [, b]) => (a.order || 50) - (b.order || 50)) // Sort by order
             .map(([route, config]) => ({
                 href: route === '' ? '/' : `/${route}`,
