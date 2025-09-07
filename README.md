@@ -9,24 +9,38 @@ Create a stunning, professional portfolio without writing a single line of code.
 <!-- ![EasyPortfolio Screenshot](link-to-your-screenshot.png) -->
 
 ### ✨ Why Use This Project?
-This project is designed to be **framework-agnostic**. You don't need coding knowledge to build your personal website. With basic web development skills, you just need to edit `variables.json` and `settings.json` to have your own professional portfolio.
+**No coding knowledge is required** to build your personal website. Simply edit the `variables.json` and `settings.json` configuration files to create your own professional portfolio. It's designed to be that easy.
+
 
 ### ⭐ Show Your Support
 If you find this project helpful, please consider **starring ⭐** and **sharing it**.
 
 ### 🚀 Features
-- **Framework Agnostic**: Editable with only basic web knowledge and no coding required
+- **Low-Code Customization:** Simply edit easy-to-understand JSON files to control your site's content and features.
+- **Framework-Agnostic:** Built with basic web technologies. No need to learn a specific framework like React or Vue.
 - **Interactive Tetris Animation**: Canvas-based, tech-based aesthetic design
 - **Client-Side Routing**: Smooth page transitions without full reloads
 - **Responsive Design**: Works on desktop, tablet, and mobile
 - **Template System**: Separates content from code for easier maintenance
 - **Clean Architecture**: Modular structure for CSS, JavaScript, and HTML
 - **Smart Page Routing System**
-  - **Smart Auto-Discovery**: Drop `PageAbout.html` → automatically gets `/about` route
+  - **Smart Auto-Discovery**: Create `PageAbout.html` file → automatically gets `/about` route
   - **Dynamic Navbar**: Auto-generates navigation from discovered pages
   - **Flexible Ordering**: Control navbar order
 
+### 🔮 Future Roadmap
+EasyPortfolio is constantly evolving! Here are some of the exciting features planned
 
+- **Markdown Blog**: Turn simple text files into a beautiful blog. [coming soon]
+- **Image Gallery**: Showcase your best work in a stunning visual gallery. [coming soon]
+- **Online CV/Resume**: Create a professional page. [coming soon]
+- **Advanced SEO**: Fine-tune your site's SEO for better search ranking. [coming soon]
+- **GitHub Showcase**: Automatically display your latest GitHub projects. [coming soon]
+- **Contact Form**: Add a working contact form without any backend code. [coming soon]
+- **Themed Profiles**: Switch between themes designed for different roles: **Programmer** (current), **Designer**, and general **Individual** (for managers, entrepreneurs, marketers, etc.). [coming soon]
+  - Each theme will feature a unique background animation, while the core layout remains consistent.
+- **Multi-Lingual Support**: Easily create and manage a website in multiple languages. [coming soon]
+- **Light Mode**: A light theme for comfortable day-time viewing. [coming soon]
 
 
 ## 🎯 Quick Start - 4 Simple Steps!
