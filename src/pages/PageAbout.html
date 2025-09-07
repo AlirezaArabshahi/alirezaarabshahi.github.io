@@ -1,55 +1,131 @@
 <div class="page-container align-center">
     <h1>About</h1>
     <div>Learn more about this SPA Router</div>
-    <hr style="border: none; height: 1px; background-color: #374151; width: 40px; margin: 1.5rem 0 1rem 0;" />
+    <hr class="page-divider" />
 
-    <div style="max-width: 600px; text-align: left;">
-        <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Router Features</h3>
-        <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
-            <div style="padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;">
-                <h4 style="color: #94a3b8; margin-bottom: 0.5rem;">🚀 Modern Navigation</h4>
-                <p style="margin: 0; font-size: 0.9rem;">Uses the History API for clean URLs without hash fragments</p>
+    <div class="about-content">
+        <div class="about-section">
+            <h3 class="about-section__title">Router Features</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4 class="feature-card__title">🚀 Modern Navigation</h4>
+                    <p class="feature-card__text">Uses the History API for clean URLs without hash fragments</p>
+                </div>
             </div>
         </div>
 
-        <h3 style="color: #e2e8f0; margin-bottom: 1rem;">Usage Example</h3>
-        <pre
-            style="background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; color: #94a3b8;">
-            <code>
-                // C# Sample Code - Simple Calculator Class
-                /*
-                using System;
+        <div class="about-section">
+            <h3 class="about-section__title">Usage Example</h3>
+            <pre class="code-block"><code>// C# Sample Code - Simple Calculator Class
+/*
+using System;
 
-                public class Calculator
-                {
-                    public double Add(double a, double b)
-                    {
-                        return a + b;
-                    }
+public class Calculator
+{
+    public double Add(double a, double b)
+    {
+        return a + b;
+    }
 
-                    public double Subtract(double a, double b)
-                    {
-                        return a - b;
-                    }
+    public double Subtract(double a, double b)
+    {
+        return a - b;
+    }
 
-                    public double Multiply(double a, double b)
-                    {
-                        return a * b;
-                    }
+    public double Multiply(double a, double b)
+    {
+        return a * b;
+    }
 
-                    public double Divide(double a, double b)
-                    {
-                        if (b == 0)
-                            throw new DivideByZeroException("Cannot divide by zero");
-                        return a / b;
-                    }
-                }
+    public double Divide(double a, double b)
+    {
+        if (b == 0)
+            throw new DivideByZeroException("Cannot divide by zero");
+        return a / b;
+    }
+}
 
-                // Usage example:
-                Calculator calc = new Calculator();
-                double result = calc.Add(10, 5); // Returns 15
-                */
-            </code>
-        </pre>
+// Usage example:
+Calculator calc = new Calculator();
+double result = calc.Add(10, 5); // Returns 15
+*/</code></pre>
+        </div>
     </div>
 </div>
+
+<style>
+/* About Page Styles */
+.about-content {
+    max-width: 600px;
+    text-align: left;
+}
+
+.about-section {
+    margin-bottom: 2rem;
+}
+
+.about-section__title {
+    color: #e2e8f0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.features-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.feature-card {
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.feature-card__title {
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.feature-card__text {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.code-block {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .about-content {
+        max-width: 100%;
+    }
+
+    .code-block {
+        font-size: 0.7rem;
+        padding: 0.8rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .feature-card {
+        padding: 0.8rem;
+    }
+
+    .feature-card__title {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .feature-card__text {
+        font-size: 0.8rem;
+    }
+}
+</style>
