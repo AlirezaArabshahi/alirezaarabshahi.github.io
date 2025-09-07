@@ -143,9 +143,12 @@ class SiteBuilder {
                 route: route === '' ? 'home' : route
             }));
 
-        return navbarPages.map(page =>
-            `<a href="${page.href}" data-page="${page.route}" class="navbar__link">${page.title}</a>`
-        ).join('\n            ');
+        return navbarPages.map(page => {
+            const isSoon = page.title.includes('[soon]');
+            
+            const title = isSoon ? page.title.replace('[soon]', '<span class="navbar__link--soon">soon</span>') : page.title;
+            return `<a href="${page.href}" data-page="${page.route}" class="navbar__link">${title}</a>`;
+        }).join('\n');
     }
 
     buildMobileNavbarLinks() {
@@ -157,10 +160,11 @@ class SiteBuilder {
                 title: config.title,
                 route: route === '' ? 'home' : route
             }));
-
-        return navbarPages.map(page =>
-            `<a href="${page.href}" data-page="${page.route}" class="navbar__mobile-link">${page.title}</a>`
-        ).join('\n            ');
+        return navbarPages.map(page => {
+            const isSoon = page.title.includes('[soon]');
+            const title = isSoon ? page.title.replace('[soon]', '<span class="navbar__link--soon">soon</span>') : page.title;
+            return `<a href="${page.href}" data-page="${page.route}" class="navbar__mobile-link">${title}</a>`;
+        }).join('\n');
     }
 
     buildPage(pageName, pageConfig) {

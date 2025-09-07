@@ -1,16 +1,19 @@
 {
     "navbarOrder": [
         "home",
+        "contact",
         "blog",
-        "cv",
-        "contact"
+        "cv"
     ],
     "pages": {
         "blog": {
-            "title": "blog [coming soon]"
+            "title": "Blog [soon]"
         },
         "cv": {
-            "title": "cv [coming soon]"
+            "title": "CV [soon]"
+        },
+        "blogpost": {
+            "showInNavbar": false
         }
     },
     "features": {

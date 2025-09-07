@@ -69,7 +69,7 @@ body {
 
 .navbar__center {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .navbar__right {
@@ -423,7 +423,7 @@ p {
 
 @media (max-width: 1024px) {
     .navbar__center {
-        gap: 1rem;
+        gap: 0.5rem;
     }
 
     .content-wrapper {
@@ -634,3 +634,12 @@ p {
         transform: translateX(100%);
     }
 }
+
+
+
+/* Style for links that are not yet active */
+.navbar__link--soon,
+.navbar__mobile-link.navbar__link--soon {
+    color: #b40000 !important; 
+}
+ 

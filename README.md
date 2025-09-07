@@ -6,7 +6,7 @@ Create a stunning, professional portfolio without writing a single line of code.
 ### 🚀 Live Demo
 **[Check out the live site here!](https://alirezaarabshahi.github.io)**
 
-<!-- ![EasyPortfolio Screenshot](link-to-your-screenshot.png) -->
+![EasyPortfolio Screenshot](.github/easy-portfolio-preview.png)
 
 ### ✨ Why Use This Project?
 **No coding knowledge is required** to build your personal website. Simply edit the `variables.json` and `settings.json` configuration files to create your own professional portfolio. It's designed to be that easy.
@@ -41,7 +41,6 @@ EasyPortfolio is constantly evolving! Here are some of the exciting features pla
   - Each theme will feature a unique background animation, while the core layout remains consistent.
 - **Multi-Lingual Support**: Easily create and manage a website in multiple languages. [coming soon]
 - **Light Mode**: A light theme for comfortable day-time viewing. [coming soon]
-
 
 ## 🎯 Quick Start - 4 Simple Steps!
 

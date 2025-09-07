@@ -1,0 +1,193 @@
+<div class="page-container align-center">
+    <h1>Learn more blog this SPA Router</h1>
+    <div>
+        This is a demo page. More content coming soon!
+    </div>
+    
+    <hr class="page-divider" />
+
+    <div class="author-card">
+        <img src="/assets/me.jpg" alt="Author Photo" class="author-card__photo">
+        <div class="author-card__info">
+            <h3 class="author-card__name">{{NAME}}</h3>
+            <p class="author-card__date"> ov 27, 2023</p> 
+        </div>
+    </div>
+
+    <div class="blog-content">
+        <div class="blog-section">
+            <h3 class="blog-section__title">Router Features</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4 class="feature-card__title">🚀 Modern Navigation</h4>
+                    <p class="feature-card__text">Uses the History API for clean URLs without hash fragments</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-section">
+            <h3 class="blog-section__title">Usage Example</h3>
+            <pre class="code-block"><code>// C# Sample Code - Simple Calculator Class
+/*
+using System;
+
+public class Calculator
+{
+    public double Add(double a, double b)
+    {
+        return a + b;
+    }
+
+    public double Subtract(double a, double b)
+    {
+        return a - b;
+    }
+
+    public double Multiply(double a, double b)
+    {
+        return a * b;
+    }
+
+    public double Divide(double a, double b)
+    {
+        if (b == 0)
+            throw new DivideByZeroException("Cannot divide by zero");
+        return a / b;
+    }
+}
+
+// Usage example:
+Calculator calc = new Calculator();
+double result = calc.Add(10, 5); // Returns 15
+*/</code></pre>
+        </div>
+    </div>
+</div>
+
+<style>
+    .blog-content {
+        max-width: 600px;
+        text-align: left;
+    }
+
+    .blog-section {
+        margin-bottom: 2rem;
+    }
+
+    .blog-section__title {
+        color: #e2e8f0;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .features-grid {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .feature-card {
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+
+    .feature-card__title {
+        color: #94a3b8;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .feature-card__text {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .code-block {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 1rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+
+    .author-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .author-card__photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .author-card__info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .author-card__name {
+        color: #e2e8f0;  
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .author-card__date {
+        color: #94a3b8;
+        font-size: 0.9rem;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+        .blog-content {
+            max-width: 100%;
+        }
+
+        .code-block {
+            font-size: 0.7rem;
+            padding: 0.8rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .feature-card {
+            padding: 0.8rem;
+        }
+
+        .feature-card__title {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card__text {
+            font-size: 0.8rem;
+        }
+
+        .author-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .author-card__photo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .author-card__name {
+            font-size: 1rem;
+        }
+
+        .author-card__date {
+            font-size: 0.8rem;
+        }
+    }
+</style>
