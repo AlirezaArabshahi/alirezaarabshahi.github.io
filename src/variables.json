@@ -14,8 +14,8 @@
     "PROFILE_IMAGE": "/assets/me.jpg"
   },
   "PageHome": {
-    "TITLE": "Software Developer | Building Applications with .NET and JavaScript",
-    "DESCRIPTION": "I'm a software engineer (or at least that's the title I'm aiming for), passionate about building scalable, standards-driven applications using best practices in the .NET ecosystem. I blend clean, precise coding with creative problem-solving to deliver high-quality, scalable solutions.",
+    "TITLE": "Software Developer",
+    "DESCRIPTION": "I love building software and aim to write code that is both clean and efficient. I enjoy creative problem-solving and always look for ways to improve the quality of my work.",
     "SKILLS": [
       "C#",
       "JavaScript",
